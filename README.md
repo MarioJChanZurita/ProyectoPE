@@ -67,7 +67,7 @@ Puede hacer una búsqueda en su lista de medicamentos ingresando el nombre del m
 
 **Diagrama de casos:**
 
-![casoUso](https://drive.google.com/file/d/1bQamHKIkQgL4wx1iieKhjHJnx19MKsYj/view)
+![casoUso] (https://drive.google.com/file/d/1bQamHKIkQgL4wx1iieKhjHJnx19MKsYj/view)
 **Estándares de codificación**
 
 Se empleará el uso del estándar básico de programación:
