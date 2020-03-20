@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#define N 1000
+
+//Prototipo
+void llenadoArreglo(int arre[][N]);
+void imprimirArreglo(int arre[][N]);
+
+int main(){
+    int array[N][N];
+    time_t t;
+
+//Generador de la funcion de la funcion
+srand((unsigned) time(&t));
+
+llenadoArreglo(array);
+imprimirArreglo(array);
+
+
+return 0;
+}
+
+void llenadoArreglo(int arre[][N]){
+    for(int i =0; i<N; i++){
+        for(int j=0; j<N; j++){
+        //Usa la funcion srand para sacar los numeros
+        arre[i][j]= rand() %50;
+        }
+    }
+}
+
+
+void imprimirArreglo(int arre[][N]){
+    int j=0;
+  for(int i =0; i<N; i++){
+        while(i+j <= (N-1)){
+            if(j>= i){
+            printf("%d,%d: %d ",i,j, arre[i][j]);
+            } else{
+                printf("        ");
+            }
+            j++;
+        }
+        printf("\n");
+        j=0;
+    }
+}
