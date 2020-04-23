@@ -19,7 +19,7 @@ Estructurar la información de los medicamentos de una manera eficiente y de fá
 
 **Usuario:** persona que usa el sistema
 
-Puede ingresar una nueva alarma de medicamento a su lista de alarmas a través de la opción de agregar alarma.
+Puede ingresar una nueva alarma de medicamento a su lista de alarmas a través de la opción de agregar alarma o el asistente inteligente.
 
 Puede editar una alarma ya creada previamente.
 
@@ -64,6 +64,15 @@ Puede hacer una búsqueda en su lista de medicamentos ingresando el nombre del m
 | RNF004 | Notificaciones |
 | --- | --- |
 | Descripción | El sistema mandará la notificación de uso del medicamente cada que cumple el periodo de ingresado (hr) con las notas del medicamento ya establecido, sin modificarse en caso de que se posponga la alarma.  |
+
+| RNF005 | Sistemas compatibles |
+| --- | --- |
+| Descripción | La aplicacion se desarrollara con android 4.0.3(Ice Cream Sandwich) API 15 para tener una compatibilidad del 100% con cualquier dispositivo.  |
+
+| RNF006 | Asistente inteligente de Google |
+| --- | --- |
+| Descripción | Se podra acceder a la aplicacion mediante el asistenten inteligente de Google, el usuario podra realizar todas sus funciones usando este mismo asistente.  |
+
 
 **Diagrama de casos:**
 
@@ -111,7 +120,7 @@ El monitoreo del equipo estará contenido en el calendario, donde se irán apunt
 
 Bitácoras:
 
-Conforme avanzamos en el proceso de desarrollo, iremos anotando cada una de los avances y cambios que se vayan haciendo al sistema, para tener un control sobre el proceso.
+Conforme avanzamos en el proceso de desarrollo, iremos anotando cada una de los avances y cambios que se vayan haciendo al sistema, para tener un control sobre el proceso. Las bitacoras consistiran con un formato de: dia, requerimiento o requerimientos trabajados, aporte porcentual realizado a los requerimientos, generalizacion del codigo realizado, es decir, que se agrego, modifico o mejoro del codigo
 
 Métrica para evaluar avance individual:
 
