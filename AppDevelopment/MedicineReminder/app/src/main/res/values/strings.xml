@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">MedicineReminder</string>
+    <string name="logo_name">Medicine Reminder</string>
+    <string name="slogan_name">Slogan</string>
+    <string name="powered_by">Powered By Software Wolves</string>
+    <string name="search_text">Search...</string>
+
+    //MENU
+    <string name="string_home">Home</string>
+    <string name="string_calendar">Calendar</string>
+    <string name="string_allreminders">All reminders</string>
+    <string name="string_login">Login</string>
+    <string name="string_profile">Profile</string>
+    <string name="string_logout">Logout</string>
+    <string name="string_settings">Settings</string>
+
+    //LOGIN
+    <string name="login_message">Hello there, Welcome Back</string>
+    <string name="signin_message">Sign In to continue</string>
+    <string name="signin_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="signin_go">Sign In</string>
+    <string name="new_user">New user? SIGN UP</string>
+
+    //SIGN UP
+    <string name="signup_welcome">Welcome</string>
+    <string name="signup_tostart">SignUp to never forget the medicines</string>
+    <string name="hint_name">Full name</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="signup_go">SIGN UP</string>
+    <string name="signup_already_account">Already have an account? LogIn</string>
+
+    //PROFILE
+    <string name="active_reminders">Active reminders</string>
+    <string name="total_reminders">Total reminders</string>
+    <string name="update_profile">Update</string>
+
+    //ADD
+    <string name="add_new_reminder">Add new medicine</string>
+    <string name="medicine">Medicine</string>
+    <string name="Treatment">Treatment</string>
+    <string name="shape">Shape</string>
+    <string name="color">Color</string>
+    <string name="add_reminder">Add Reminder</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
