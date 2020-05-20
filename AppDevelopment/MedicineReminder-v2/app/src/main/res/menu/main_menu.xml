@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:title="@string/string_home"
+            android:icon="@drawable/icon_home"/>
+        <item
+            android:id="@+id/nav_calendar"
+            android:title="@string/string_calendar"
+            android:icon="@drawable/icon_calendar"/>
+        <item
+            android:id="@+id/nav_allreminders"
+            android:title="@string/string_allreminders"
+            android:icon="@drawable/icon_allreminders"/>
+    </group>
+
+    <item android:title="@string/string_profile">
+        <menu>
+
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_login"
+                    android:title="@string/string_login"
+                    android:icon="@drawable/icon_login"/>
+                <item
+                    android:id="@+id/nav_profile"
+                    android:title="@string/string_profile"
+                    android:icon="@drawable/icon_profile"/>
+                <item
+                    android:id="@+id/nav_logout"
+                    android:title="@string/string_logout"
+                    android:icon="@drawable/icon_logout"/>
+            </group>
+
+        </menu>
+    </item>
+
+    <item android:title="@string/string_settings">
+        <menu>
+
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_settings"
+                    android:title="@string/string_settings"
+                    android:icon="@drawable/icon_settings"/>
+            </group>
+
+        </menu>
+    </item>
+
+</menu>
