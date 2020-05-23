@@ -98,6 +98,7 @@ public class alarma extends AppCompatActivity {
         t7.setText("");
         Toast.makeText(this, "alarma registrada", Toast.LENGTH_LONG).show();
     }
+
     public void setCurrentTimeOnView() {
 
         textViewTime = (EditText) findViewById(R.id.editText6);
