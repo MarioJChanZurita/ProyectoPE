@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">BaseData</string>
+    <string name="txt_duracion">duración</string>
+    <string name="txt_nombre">Nombre del medicamento</string>
+    <string name="txt_periodo">Periodo</string>
+    <string name="txt_dosis">Dosis o notas</string>
+    <string name="BotonRegistrar">Registrar Producto</string>
+    <string name="BotonBuscar">Buscar Producto</string>
+    <string name="BotonEliminar">Eliminar Producto</string>
+    <string name="BotonModificar">Modificar Producto</string>
+</resources>
