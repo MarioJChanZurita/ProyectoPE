@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Alarma</string>
+    <string name="pistaNombre">Nombre de medicina</string>
+    <string name="pistaHoras">Hora para la medicina</string>
+    <string name="pistaMinutos">Minutos para la medicina</string>
+    <string name="pistaDuracion">Duracion (dias)</string>
+    <string name="botonesGuardar">guardar</string>
+    <string name="botonVer">Ver</string>
+
+</resources>
