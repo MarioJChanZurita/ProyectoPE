@@ -12,18 +12,15 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase BaseDatos) {
-        BaseDatos.execSQL("create table datos(posicion int primary key, tiempo int, nombre text, periodoHoras int, periodoMinutos int,periodoTotal int, duracion int,contador int, maximo int)");
+        BaseDatos.execSQL("create table datos(" +
+                "posicion int primary key, nombre text, periodoHoras int, periodoMinutos int, duracion int,notas text)");
         /**
          * posicion = numero de medicina agregada
-         * tiempo = segundos independientes de cada medicina
          * nombre = nombre de la medicina
          * periodoHoras = horas que deberian pasar para tomar la medicina
          * periodoMinutos = minutos sobre la hora que deberian pasar para tomar la medicina
-         * periodoTotal = segundos totales de la alarma
          * duracion = dias que el usuario tomara la medicina
-         * contador = numero de veces que sono la alarma
-         * maximo = maximo numero de veces que debe sonar la alarma
-         *
+         * notas = notas adicionaes
          */
     }
 
