@@ -15,7 +15,7 @@
         android:layout_marginTop="48dp"
         android:ems="10"
         android:hint="@string/pistaNombre"
-        android:inputType="textPersonName"
+        android:inputType="none"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,27 +58,43 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/minutosMedicina" />
 
+    <EditText
+        android:id="@+id/notasMedicina"
+        android:layout_width="320dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:gravity="top|left"
+        android:hint="@string/pistaNotas"
+        android:inputType="none"
+        android:isScrollContainer="false"
+        android:singleLine="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/duracionMedicina" />
+
     <Button
         android:id="@+id/guardar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="44dp"
         android:onClick="agregarDatos"
         android:text="@string/botonesGuardar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/duracionMedicina" />
+        app:layout_constraintTop_toBottomOf="@+id/notasMedicina" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="380dp"
-        android:onClick="prueba"
-        android:text="@string/botonVer"
+        android:layout_marginStart="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginTop="544dp"
+        android:onClick="modificar"
+        android:text="@string/botonEditar"
         app:layout_constraintStart_toEndOf="@+id/guardar"
         app:layout_constraintTop_toTopOf="parent" />
 

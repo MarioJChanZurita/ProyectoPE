@@ -2,22 +2,22 @@ package com.example.alarma;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class AlarmaDatos extends AppCompatActivity {
 
-    private TextView  horas, minutos, duracion,posicion;
+    private EditText nombreMedicina, horasMedicina, minutosMedicina, duracionMedicina, notasMedicina;
     private Spinner nombreAlarmas;
 
     @Override
@@ -27,14 +27,16 @@ public class AlarmaDatos extends AppCompatActivity {
 
         //Creamos los objetos de la pantalla
         nombreAlarmas = (Spinner)findViewById(R.id.nombreAlarmas);
-        horas = (TextView)findViewById(R.id.horas);
-        minutos = (TextView)findViewById(R.id.minutos);
-        duracion = (TextView)findViewById(R.id.duracion);
-        posicion =(TextView)findViewById(R.id.posicion);
+        nombreMedicina = (EditText)findViewById(R.id.nombreMedicina);
+        horasMedicina = (EditText)findViewById(R.id.horasMedicina);
+        minutosMedicina = (EditText)findViewById(R.id.minutosMedicina);
+        duracionMedicina = (EditText)findViewById(R.id.duracionMedicina);
+        notasMedicina = (EditText)findViewById(R.id.notasMedicina);
 
         spinnerAlarmas(generarLista());
     }
 
+    //Funcion que genera la lista de
     public ArrayList<String> generarLista(){
         //Cosas para acceder a la base de datos
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
@@ -62,10 +64,6 @@ public class AlarmaDatos extends AppCompatActivity {
     };
 
     public void spinnerAlarmas(ArrayList<String> Alarmas){
-        //Cosas para acceder a la base de datos
-        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
-        final SQLiteDatabase baseDatos = admin.getWritableDatabase(); //Abre la base de datos en modo escritura
-
         //Generar el spiner
         ArrayAdapter<String> spinnerNombres = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, Alarmas);
         nombreAlarmas.setAdapter(spinnerNombres);
@@ -74,16 +72,7 @@ public class AlarmaDatos extends AppCompatActivity {
         nombreAlarmas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int seleccion, long id) {
-                //Recuperamos los datos
-                Cursor alarma = baseDatos.rawQuery("SELECT posicion, periodoHoras, periodoMinutos, duracion FROM datos WHERE posicion =" + seleccion, null);
-                //Nos aseguramos de estar en el primer elemento
-                if(alarma.moveToFirst()){
-                    //Mostramos los datos al usuario
-                    posicion.setText(alarma.getString(0));
-                    horas.setText(alarma.getString(1));
-                    minutos.setText(alarma.getString(2));
-                    duracion.setText(alarma.getString(3));
-                }
+                cargarDatos(seleccion);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -91,5 +80,59 @@ public class AlarmaDatos extends AppCompatActivity {
             }
         });
     }
+    public void cargarDatos(int seleccion){
+        //Cosas para acceder a la base de datos
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
+        SQLiteDatabase baseDatos = admin.getWritableDatabase(); //Abre la base de datos en modo escritura
+        if(seleccion !=0){
+            Cursor datosAlarma = baseDatos.rawQuery("Select * From datos Where posicion="+seleccion,null);
+            if(datosAlarma.moveToFirst()){
+                nombreMedicina.setText(datosAlarma.getString(1));
+                horasMedicina.setText(datosAlarma.getString(2));
+                minutosMedicina.setText(datosAlarma.getString(3));
+                duracionMedicina.setText(datosAlarma.getString(4));
+                notasMedicina.setText(datosAlarma.getString(5));
+            }
+        }
+    }
+
+    public void modificar(View view){
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
+        final SQLiteDatabase baseDatos = admin.getWritableDatabase(); //Abre la base de datos en modo escritura
+
+         int opcion = nombreAlarmas.getSelectedItemPosition();
+                //Obtenemos los valores de los campos correspondientes
+                String nombre = nombreMedicina.getText().toString();
+                String hrs = horasMedicina.getText().toString();
+                String min = minutosMedicina.getText().toString();
+                String dura = duracionMedicina.getText().toString();
+                String nota = notasMedicina.getText().toString();
+
+                //verificamos que los campos estan llenos
+                if(!nombre.isEmpty() && !hrs.isEmpty() && !min.isEmpty() && !dura.isEmpty()){
+                    //Convertimos los datos para coincidir con los de la base de datos
+                    int horas = Integer.parseInt(hrs);
+                    int minutos = Integer.parseInt(min);
+                    int duracion = Integer.parseInt(dura);
+
+                    ContentValues modificar = new ContentValues();
+                    modificar.put("nombre", nombre);
+                    modificar.put("periodoHoras", horas);
+                    modificar.put("periodoMinutos", minutos);
+                    modificar.put("duracion", duracion);
+                    modificar.put("notas", nota);
+
+                    int modificacion = baseDatos.update("datos", modificar,"posicion="+opcion, null);
+                    //Vemos si se modifico la base de datos
+                    if(modificacion == 1){
+                        Toast.makeText(this,"Cambios guardados", Toast.LENGTH_SHORT).show();
+                        spinnerAlarmas(generarLista());
+                    }else{
+                        Toast.makeText(this,"Ah ocurrido un error", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(this,"Debes llenar los campos correctamente", Toast.LENGTH_SHORT).show();
+                }
+            }
 
 }

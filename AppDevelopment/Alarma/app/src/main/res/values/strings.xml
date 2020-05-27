@@ -4,7 +4,9 @@
     <string name="pistaHoras">Hora para la medicina</string>
     <string name="pistaMinutos">Minutos para la medicina</string>
     <string name="pistaDuracion">Duracion (dias)</string>
+    <string name="pistaNotas">Notas</string>
     <string name="botonesGuardar">guardar</string>
-    <string name="botonVer">Ver</string>
+    <string name="botonEditar">Editar</string>
+    <string name="editarAlarma">Editar alarma</string>
 
 </resources>

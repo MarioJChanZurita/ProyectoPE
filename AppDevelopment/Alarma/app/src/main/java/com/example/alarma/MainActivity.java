@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText nombreMedicina, horasMedicina, minutosMedicina, duracionMedicina;
+    EditText nombreMedicina, horasMedicina, minutosMedicina, duracionMedicina, notasMedicina;
 
 
     @Override
@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         horasMedicina = (EditText)findViewById(R.id.horasMedicina);
         minutosMedicina = (EditText)findViewById(R.id.minutosMedicina);
         duracionMedicina = (EditText)findViewById(R.id.duracionMedicina);
+        notasMedicina = (EditText)findViewById(R.id.notasMedicina);
     }
 
     //Funcion para agregar una medicina
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         String hrs = horasMedicina.getText().toString();
         String min = minutosMedicina.getText().toString();
         String dura = duracionMedicina.getText().toString();
+        String notas = notasMedicina.getText().toString();
 
         //Verificamos que todos los campos estan llenados
         if(!nombre.isEmpty() && !hrs.isEmpty() && !min.isEmpty() && !dura.isEmpty()){
@@ -45,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
             int horas = Integer.parseInt(hrs);
             int minutos = Integer.parseInt(min);
             int duracion = Integer.parseInt(dura);
-            int total = horas*60*60 + minutos*60; //Son los segundos entre cada periodo
-            int maximo = (duracion*86400)/total; //(duracion*segundos del dia)/total
 
 
             //Obtenemos la ultima posicion de la base de datos
@@ -65,17 +65,8 @@ public class MainActivity extends AppCompatActivity {
             agregar.put("nombre", nombre);
             agregar.put("periodoHoras", horas);
             agregar.put("periodoMinutos", minutos);
-            agregar.put("periodoTotal", total);
             agregar.put("duracion", duracion);
-            agregar.put("maximo",maximo);
-
-            //Datos faltantes
-            agregar.put("tiempo", 0);
-            agregar.put("contador",0);
-            /**
-             * tiempo = segundos independientes de cada medicina
-             * contador = numero de veces que sono la alarma
-             */
+            agregar.put("notas", notas);
 
             //Agregamos y cerramos la base de datos
             baseDatos.insert("datos", null, agregar);
@@ -96,11 +87,12 @@ public class MainActivity extends AppCompatActivity {
         horasMedicina.setText("");
         minutosMedicina.setText("");
         duracionMedicina.setText("");
+        notasMedicina.setText("");
     }
 
-    //Funcion para prueba BD
-    public void prueba(View view){
-        Intent prueba = new Intent(this, AlarmaDatos.class);
-        startActivity(prueba);
+    //Funcion para modificar una alarma
+    public void modificar(View view){
+        Intent modificar = new Intent(this, AlarmaDatos.class);
+        startActivity(modificar);
     }
 }
