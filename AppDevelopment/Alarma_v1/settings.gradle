@@ -1,0 +1,2 @@
+rootProject.name='Alarma_v1'
+include ':app'
