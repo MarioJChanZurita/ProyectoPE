@@ -8,5 +8,8 @@
     <string name="botonesGuardar">guardar</string>
     <string name="botonEditar">Editar</string>
     <string name="editarAlarma">Editar alarma</string>
+    <string name="test">TEST</string>
+
+    <string name="textoHora">Hora de inicio</string>
 
 </resources>
