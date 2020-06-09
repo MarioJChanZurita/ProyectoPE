@@ -9,16 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".User.Treatment"></activity>
-        <activity android:name=".User.AddReminder" />
-        <activity android:name=".User.Settings" />
-        <activity android:name=".User.AllReminders" />
-        <activity android:name=".User.Calendar" />
-        <activity android:name=".User.UserProfile" />
-        <activity android:name=".User.SignUp" />
-        <activity android:name=".User.Login" />
-        <activity android:name=".User.UserDashboard" />
-        <activity android:name=".Common.SplashScreen">
+        <activity android:name=".Alarma.ModificarAlarma" />
+        <activity android:name=".Alarma.NuevaAlarma" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
