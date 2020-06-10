@@ -46,8 +46,10 @@ public class AlertReceiver extends BroadcastReceiver {
                 //Llamamos a la clase de la notificacion para crearla y mandarla
                 NotificationHelper notificationHelper = new NotificationHelper(context);
                 NotificationCompat.Builder nb = notificationHelper.getNotification(nombre, mensaje);
-                notificationHelper.getManager().notify(1,nb.build());
+                notificationHelper.getManager().notify((int)System.currentTimeMillis(),nb.build());
             }
+
+
 
         }
         baseDatos.close();
