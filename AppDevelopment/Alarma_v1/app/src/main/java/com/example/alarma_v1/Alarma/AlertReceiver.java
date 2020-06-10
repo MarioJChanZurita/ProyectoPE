@@ -47,9 +47,24 @@ public class AlertReceiver extends BroadcastReceiver {
                 NotificationHelper notificationHelper = new NotificationHelper(context);
                 NotificationCompat.Builder nb = notificationHelper.getNotification(nombre, mensaje);
                 notificationHelper.getManager().notify((int)System.currentTimeMillis(),nb.build());
+
+
+                //Llamamos a los valores de cada cuanto tiempo debe activarse la alarma y al valor de la posicion
+                int opcion = fila.getInt(0);
+                int pHoras = fila.getInt(2);
+                int pMinutos = fila.getInt(3);
+
+                //A la hora en la que se activo la alarma por ultima vez le agregamos el periodo de horas y el periodo de minutos
+                calendarioHora.add(Calendar.HOUR_OF_DAY, pHoras);
+                calendarioHora.add(Calendar.MINUTE, pMinutos);
+                String horaNueva = DateFormat.getTimeInstance(DateFormat.SHORT).format(calendarioHora.getTime());
+
+                //Almacenamos la nueva hora en la base de datos a traves de una actualizacion
+                ContentValues actualizar = new ContentValues();
+                actualizar.put("hora", horaNueva);
+                baseDatos.update("datos", actualizar,"posicion="+opcion, null);
+
             }
-
-
 
         }
         baseDatos.close();
