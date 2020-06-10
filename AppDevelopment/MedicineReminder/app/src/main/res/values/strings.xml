@@ -6,8 +6,8 @@
     <string name="alarms">Alarms</string>
 
     <string name="pistaNombre">Nombre de medicina</string>
-    <string name="pistaHoras">Hora para la medicina</string>
-    <string name="pistaMinutos">Minutos para la medicina</string>
+    <string name="pistaHoras">Hora de primera toma</string>
+    <string name="pistaMinutos">Intervalo para la toma</string>
     <string name="pistaDuracion">Duracion (dias)</string>
     <string name="pistaNotas">Notas</string>
     <string name="botonesGuardar">guardar</string>

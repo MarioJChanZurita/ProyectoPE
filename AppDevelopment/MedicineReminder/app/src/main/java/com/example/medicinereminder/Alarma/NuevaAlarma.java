@@ -2,6 +2,7 @@ package com.example.medicinereminder.Alarma;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,15 +11,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.medicinereminder.DataBase.AdminSQLiteOpenHelper;
 import com.example.medicinereminder.MainActivity;
 import com.example.medicinereminder.R;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+
 public class NuevaAlarma extends AppCompatActivity {
 
-    EditText nombreMedicina, horasMedicina, minutosMedicina, duracionMedicina, notasMedicina;
+    EditText nombreMedicina, duracionMedicina, notasMedicina;
+    TextView primeraToma, periodoMedicina;
+
+    //Variables globales empleadas para la BD
+    private int hora, minutos, periodoHoras, periodoMinutos;
+    private boolean verificadorHora1, verificadorHora2;
 
 
     @Override
@@ -28,10 +39,11 @@ public class NuevaAlarma extends AppCompatActivity {
         setContentView(R.layout.activity_nueva_alarma);
 
         nombreMedicina = (EditText)findViewById(R.id.nombreMedicina);
-        horasMedicina = (EditText)findViewById(R.id.horasMedicina);
-        minutosMedicina = (EditText)findViewById(R.id.minutosMedicina);
         duracionMedicina = (EditText)findViewById(R.id.duracionMedicina);
         notasMedicina = (EditText)findViewById(R.id.notasMedicina);
+
+        primeraToma = (TextView)findViewById(R.id.primeraToma);
+        periodoMedicina = (TextView)findViewById(R.id.periodoMedicina);
     }
 
     //Funcion para agregar una medicina
@@ -41,17 +53,13 @@ public class NuevaAlarma extends AppCompatActivity {
 
         //Obtenemos los valores de los campos correspondientes
         String nombre = nombreMedicina.getText().toString();
-        String hrs = horasMedicina.getText().toString();
-        String min = minutosMedicina.getText().toString();
         String dura = duracionMedicina.getText().toString();
         String notas = notasMedicina.getText().toString();
 
         //Verificamos que todos los campos estan llenados
-        if(!nombre.isEmpty() && !hrs.isEmpty() && !min.isEmpty() && !dura.isEmpty()){
+        if(!nombre.isEmpty() && verificadorHora1 && verificadorHora2 && !dura.isEmpty()){
             //Convertimos los datos para coincidir con los de la base de datos
             int posicion = 1; //Inicializado en 1 por conveniencia en la BD
-            int horas = Integer.parseInt(hrs);
-            int minutos = Integer.parseInt(min);
             int duracion = Integer.parseInt(dura);
 
 
@@ -69,8 +77,10 @@ public class NuevaAlarma extends AppCompatActivity {
             ContentValues agregar = new ContentValues();
             agregar.put("posicion",posicion);
             agregar.put("nombre", nombre);
-            agregar.put("periodoHoras", horas);
-            agregar.put("periodoMinutos", minutos);
+            agregar.put("horas",hora);
+            agregar.put("minutos", minutos);
+            agregar.put("periodoHoras", periodoHoras);
+            agregar.put("periodoMinutos", periodoMinutos);
             agregar.put("duracion", duracion);
             agregar.put("notas", notas);
 
@@ -90,10 +100,54 @@ public class NuevaAlarma extends AppCompatActivity {
     //Funcion que limpia los campos
     public void limpiado(){
         nombreMedicina.setText("");
-        horasMedicina.setText("");
-        minutosMedicina.setText("");
+        primeraToma.setText("");
+        periodoMedicina.setText("");
         duracionMedicina.setText("");
         notasMedicina.setText("");
+    }
+
+    public void obtenerPrimeraToma(View view){
+        final TimePickerDialog reloj = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                //Usamos calendar por la facilidad de mostrar la hora
+                Calendar horaCompleta = Calendar.getInstance();
+                horaCompleta.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                horaCompleta.set(Calendar.MINUTE, minute);
+                horaCompleta.set(Calendar.SECOND, 0);
+
+                hora = hourOfDay;
+                minutos = minute;
+                verificadorHora1= true;
+
+                //Mostramos al usuario la hora seleccionada
+                primeraToma.setText(DateFormat.getTimeInstance(DateFormat.SHORT).format(horaCompleta.getTime()));
+            }
+        },hora, minutos,false);
+        reloj.show();
+    }
+
+    public void obtenerIntervalo(View view){
+        final TimePickerDialog reloj = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                //Usamos calendar por la facilidad de mostrar la hora
+                Calendar horaCompleta = Calendar.getInstance();
+                horaCompleta.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                horaCompleta.set(Calendar.MINUTE, minute);
+                horaCompleta.set(Calendar.SECOND, 0);
+
+
+                periodoHoras = hourOfDay;
+                periodoMinutos = minute;
+                verificadorHora2= true;
+
+                //Mostramos al usuario la hora seleccionada
+                periodoMedicina.setText(String.format("%02d:%02d", periodoHoras, periodoMinutos));
+            }
+        },periodoHoras, periodoMinutos,false);
+        reloj.show();
     }
 
     public void regresar(View view){
