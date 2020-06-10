@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         MostrarAdaptador mostrarAdaptador = new MostrarAdaptador(mostrarAlarmas());
         recyclerViewAlarma.setAdapter(mostrarAdaptador);
 
-
     }
 
     //funcion para ir al activity de agregar alarma
@@ -57,12 +56,12 @@ public class MainActivity extends AppCompatActivity {
         //Abrimos la base de datos
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
         SQLiteDatabase baseDatos = admin.getWritableDatabase();
-        Cursor lista = baseDatos.rawQuery("SELECT * FROM datos", null);
+        Cursor lista = baseDatos.rawQuery("SELECT nombre, notas FROM datos", null);
         //Creamos una lista y alamcenamos en ella el nombre y notas de todas las alarmas
         List<MostrarModelo> mostrar = new ArrayList<>();
         if(lista.moveToFirst()){
             do{
-                mostrar.add(new MostrarModelo(lista.getString(1), lista.getString(5)));
+                mostrar.add(new MostrarModelo(lista.getString(0), lista.getString(1)));
             }while(lista.moveToNext());
         }
         baseDatos.close();

@@ -39,23 +39,27 @@
             android:hint="@string/pistaNombre"
             android:inputType="none"/>
 
-        <EditText
-            android:id="@+id/horasMedicina"
+        <TextView
+            android:id="@+id/primeraToma"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:ems="10"
-            android:hint="@string/pistaHoras"
-            android:inputType="number" />
+            android:inputType="number"
+            android:onClick="obtenerPrimeraToma"
+            android:text="@string/pistaHoras"
+            android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/minutosMedicina"
+        <TextView
+            android:id="@+id/periodoMedicina"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:ems="10"
             android:hint="@string/pistaMinutos"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:onClick="obtenerIntervalo"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/duracionMedicina"
