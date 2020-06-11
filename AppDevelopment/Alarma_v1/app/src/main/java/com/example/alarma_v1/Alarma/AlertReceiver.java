@@ -54,10 +54,35 @@ public class AlertReceiver extends BroadcastReceiver {
                 int pHoras = fila.getInt(2);
                 int pMinutos = fila.getInt(3);
 
+                //Llamamos al valor de duracion de la base de datos
+                int duracion = fila.getInt(4);
+
                 //A la hora en la que se activo la alarma por ultima vez le agregamos el periodo de horas y el periodo de minutos
                 calendarioHora.add(Calendar.HOUR_OF_DAY, pHoras);
                 calendarioHora.add(Calendar.MINUTE, pMinutos);
                 String horaNueva = DateFormat.getTimeInstance(DateFormat.SHORT).format(calendarioHora.getTime());
+
+                //Se agrega un dia a fecha en caso de ser necesario y se actualiza en la base de datos
+                //La duracion al alcanzar el valor de 0 se elimina la alarma
+                if(calendarioHora.before(Calendar.getInstance())) {
+                    calendarioFecha.add(Calendar.DAY_OF_YEAR, 1);
+                    String fechaNueva = DateFormat.getDateInstance(DateFormat.FULL).format(calendarioFecha.getTime());
+
+                    //A la variable duracion le restamos un dia cada vez que se agrega uno a la fecha de la base de datos y actualizamos su valor en la base de datos
+                    duracion -=1;
+
+                    //Almacenamos la nueva hora en la base de datos a traves de una actualizacion
+                    ContentValues actualizar = new ContentValues();
+                    actualizar.put("duracion", duracion);
+                    actualizar.put("fecha", fechaNueva);
+                    baseDatos.update("datos", actualizar,"posicion="+opcion, null);
+
+                    //Si la duracion llega a ser igual a 0 entonces se elimina la alarma
+                    if(duracion == 0){
+                        baseDatos.delete("datos","posicion="+opcion,null);
+                    }
+
+                }
 
                 //Almacenamos la nueva hora en la base de datos a traves de una actualizacion
                 ContentValues actualizar = new ContentValues();
