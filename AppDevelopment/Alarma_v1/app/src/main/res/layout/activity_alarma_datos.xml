@@ -1,104 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AlarmaDatos">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="150dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/editarAlarma"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="30dp">
 
-    <Spinner
-        android:id="@+id/nombreAlarmas"
-        android:layout_width="144dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/nombreMedicina"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:inputType="none"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombreAlarmas" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="150dp"
+                android:layout_height="47dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/editarAlarma"/>
 
-    <EditText
-        android:id="@+id/horasMedicina"
-        android:layout_width="144dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginTop="36dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombreMedicina" />
+            <Spinner
+                android:id="@+id/nombreAlarmas"
+                android:layout_width="144dp"
+                android:layout_height="47dp"
+                android:layout_marginTop="16dp" />
 
-    <EditText
-        android:id="@+id/minutosMedicina"
-        android:layout_width="144dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="36dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horasMedicina" />
+        </LinearLayout>
 
-    <EditText
-        android:id="@+id/duracionMedicina"
-        android:layout_width="144dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="36dp"
-        android:autoText="true"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/minutosMedicina" />
 
-    <EditText
-        android:id="@+id/notasMedicina"
-        android:layout_width="320dp"
-        android:layout_height="130dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:gravity="top|left"
-        android:inputType="none"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/duracionMedicina" />
+        <EditText
+            android:id="@+id/nombreMedicina"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:inputType="none" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginTop="34dp"
-        android:onClick="modificar"
-        android:text="@string/botonesGuardar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notasMedicina" />
+        <EditText
+            android:id="@+id/horasMedicina"
+            android:layout_width="144dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="36dp"
+            android:ems="10"
+            android:inputType="number" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/minutosMedicina"
+            android:layout_width="144dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="36dp"
+            android:ems="10"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/duracionMedicina"
+            android:layout_width="144dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="36dp"
+            android:autoText="true"
+            android:ems="10"
+            android:inputType="number"/>
+
+        <EditText
+            android:id="@+id/notasMedicina"
+            android:layout_width="320dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:gravity="top|left"
+            android:inputType="none"/>
+
+        //----------------------------------
+        <Button
+            android:layout_marginTop="24dp"
+            android:text="seleccione la fecha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/seleccionarFecha" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/fechaSeleccionada" />
+
+        <Button
+            android:text="seleccione la hora"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/seleccionarHora" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/horaSeleccionada"/>
+
+        //--------------------------------
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp"
+            android:onClick="modificar"
+            android:text="@string/botonesGuardar"/>
+
+    </LinearLayout>
+
+</ScrollView>
+
+
