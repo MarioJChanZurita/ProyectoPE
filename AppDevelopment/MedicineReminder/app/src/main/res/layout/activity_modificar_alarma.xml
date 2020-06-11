@@ -51,23 +51,21 @@
             android:ems="10"
             android:inputType="none"/>
 
-        <TextView
-            android:id="@+id/primeraToma"
+        <EditText
+            android:id="@+id/horasMedicina"
             android:layout_width="144dp"
             android:layout_height="47dp"
             android:layout_marginTop="36dp"
             android:ems="10"
-            android:inputType="number"
-            android:onClick="obtenerToma" />
+            android:inputType="number" />
 
-        <TextView
-            android:id="@+id/periodoMedicina"
+        <EditText
+            android:id="@+id/minutosMedicina"
             android:layout_width="144dp"
             android:layout_height="47dp"
             android:layout_marginTop="36dp"
             android:ems="10"
-            android:inputType="number"
-            android:onClick="obtenerIntervalo" />
+            android:inputType="number"/>
 
         <EditText
             android:id="@+id/duracionMedicina"
@@ -87,6 +85,39 @@
             android:gravity="top|left"
             android:inputType="none" />
 
+        //----------------------------------
+        <Button
+            android:layout_marginTop="24dp"
+            android:text="seleccione la fecha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/seleccionarFecha"
+            android:background="@color/black"
+            android:textColor="@color/white"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/fechaSeleccionada" />
+
+        <Button
+            android:text="seleccione la hora"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/seleccionarHora"
+            android:background="@color/black"
+            android:textColor="@color/white"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/horaSeleccionada" />
+
+        //--------------------------------
 
         <Button
             android:id="@+id/btModificar"

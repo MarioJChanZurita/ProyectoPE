@@ -1,5 +1,7 @@
 package com.example.medicinereminder.Alarma;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,8 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.medicinereminder.DataBase.AdminSQLiteOpenHelper;
 import com.example.medicinereminder.MainActivity;

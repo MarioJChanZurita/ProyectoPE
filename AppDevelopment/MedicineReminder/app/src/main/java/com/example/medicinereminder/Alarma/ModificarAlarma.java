@@ -1,9 +1,14 @@
 package com.example.medicinereminder.Alarma;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
+import android.app.AlarmManager;
+import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,6 +17,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,19 +27,19 @@ import android.widget.Toast;
 
 import com.example.medicinereminder.DataBase.AdminSQLiteOpenHelper;
 import com.example.medicinereminder.MainActivity;
+import com.example.medicinereminder.Notificaciones.AlertReceiver;
 import com.example.medicinereminder.R;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class ModificarAlarma extends AppCompatActivity {
+public class ModificarAlarma extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
 
-    private EditText nombreMedicina, duracionMedicina, notasMedicina;
-    private TextView primeraToma, periodoMedicina;
+    private EditText nombreMedicina, horasMedicina, minutosMedicina, duracionMedicina, notasMedicina;
     private Spinner nombreAlarmas;
+    TextView mostrarFecha, mostrarHora;
 
-    private int hora, minutos, periodoHoras, periodoMinutos, seleccionSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +50,33 @@ public class ModificarAlarma extends AppCompatActivity {
         //Creamos los objetos de la pantalla
         nombreAlarmas = (Spinner)findViewById(R.id.nombreAlarmas);
         nombreMedicina = (EditText)findViewById(R.id.nombreMedicina);
+        horasMedicina = (EditText)findViewById(R.id.horasMedicina);
+        minutosMedicina = (EditText)findViewById(R.id.minutosMedicina);
         duracionMedicina = (EditText)findViewById(R.id.duracionMedicina);
         notasMedicina = (EditText)findViewById(R.id.notasMedicina);
 
-        primeraToma = (TextView)findViewById(R.id.primeraToma);
-        periodoMedicina = (TextView)findViewById(R.id.periodoMedicina);
+        mostrarFecha = (EditText) findViewById(R.id.fechaSeleccionada);
+        mostrarHora = (EditText) findViewById(R.id.horaSeleccionada);
+
+        //boton para abrir el date picker y seleccionar la fecha
+        Button btDate = (Button) findViewById(R.id.seleccionarFecha);
+        btDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment datePicker = new DatePickerFragment();
+                datePicker.show(getSupportFragmentManager(), "date picker");
+            }
+        });
+
+        //boton para abrir el time picker y seleccionar la hora
+        Button btTime = (Button) findViewById(R.id.seleccionarHora);
+        btTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment timePicker = new TimePickerFragment();
+                timePicker.show(getSupportFragmentManager(), "time picker");
+            }
+        });
 
         spinnerAlarmas(generarLista());
     }
@@ -88,8 +117,7 @@ public class ModificarAlarma extends AppCompatActivity {
         nombreAlarmas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int seleccion, long id) {
-                seleccionSpinner = seleccion;
-                cargarDatos(seleccionSpinner);
+                cargarDatos(seleccion);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -97,7 +125,6 @@ public class ModificarAlarma extends AppCompatActivity {
             }
         });
     }
-
     public void cargarDatos(int seleccion){
         //Cosas para acceder a la base de datos
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
@@ -105,52 +132,54 @@ public class ModificarAlarma extends AppCompatActivity {
         if(seleccion !=0){
             Cursor datosAlarma = baseDatos.rawQuery("Select * From datos Where posicion="+seleccion,null);
             if(datosAlarma.moveToFirst()){
-                //Con esto conseguimos que los timePicker inicien con la hora puesta por el usuario
-                hora = datosAlarma.getInt(2);
-                minutos = datosAlarma.getInt(3);
-                periodoHoras = datosAlarma.getInt(4);
-                periodoMinutos = datosAlarma.getInt(5);
-
-
                 nombreMedicina.setText(datosAlarma.getString(1));
-                primeraToma.setText(DateFormat.getTimeInstance(DateFormat.SHORT).format(horaArmada(hora, minutos).getTime()));
-                periodoMedicina.setText(String.format("%02d:%02d", periodoHoras, periodoMinutos));
-                duracionMedicina.setText(datosAlarma.getString(6));
-                notasMedicina.setText(datosAlarma.getString(7));
+                horasMedicina.setText(datosAlarma.getString(2));
+                minutosMedicina.setText(datosAlarma.getString(3));
+                duracionMedicina.setText(datosAlarma.getString(4));
+                notasMedicina.setText(datosAlarma.getString(5));
+
+                mostrarFecha.setText(datosAlarma.getString(6));
+                mostrarHora.setText(datosAlarma.getString(7));
             }
         }
     }
-    public Calendar horaArmada(int hora, int minutos){
-        Calendar horaCompleta = Calendar.getInstance();
-        horaCompleta.set(Calendar.HOUR_OF_DAY, hora);
-        horaCompleta.set(Calendar.MINUTE, minutos);
-        horaCompleta.set(Calendar.SECOND, 0);
 
-        return horaCompleta;
-    }
     public void modificar(View view){
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
         final SQLiteDatabase baseDatos = admin.getWritableDatabase(); //Abre la base de datos en modo escritura
 
+        int opcion = nombreAlarmas.getSelectedItemPosition();
         //Obtenemos los valores de los campos correspondientes
         String nombre = nombreMedicina.getText().toString();
+        String hrs = horasMedicina.getText().toString();
+        String min = minutosMedicina.getText().toString();
         String dura = duracionMedicina.getText().toString();
-        String notas = notasMedicina.getText().toString();
+        String nota = notasMedicina.getText().toString();
+
+        String fecha = mostrarFecha.getText().toString();
+        String hora = mostrarHora.getText().toString();
 
         //verificamos que los campos estan llenos
-        if(!nombre.isEmpty() &&  !dura.isEmpty()){
+        if(!nombre.isEmpty() && !hrs.isEmpty() && !min.isEmpty() && !dura.isEmpty()){
+            //Convertimos los datos para coincidir con los de la base de datos
+            int horas = Integer.parseInt(hrs);
+            int minutos = Integer.parseInt(min);
             int duracion = Integer.parseInt(dura);
 
             ContentValues modificar = new ContentValues();
             modificar.put("nombre", nombre);
-            modificar.put("horas",hora);
-            modificar.put("minutos", minutos);
-            modificar.put("periodoHoras", periodoHoras);
-            modificar.put("periodoMinutos", periodoMinutos);
+            modificar.put("periodoHoras", horas);
+            modificar.put("periodoMinutos", minutos);
             modificar.put("duracion", duracion);
-            modificar.put("notas", notas);
+            modificar.put("notas", nota);
 
-            int modificacion = baseDatos.update("datos", modificar,"posicion="+seleccionSpinner, null);
+            modificar.put("fecha", fecha);
+            modificar.put("hora", hora);
+
+            int modificacion = baseDatos.update("datos", modificar,"posicion="+opcion, null);
+
+            startAlarm();
+
             //Vemos si se modifico la base de datos
             if(modificacion == 1){
                 Toast.makeText(this,"Cambios guardados", Toast.LENGTH_SHORT).show();
@@ -162,45 +191,48 @@ public class ModificarAlarma extends AppCompatActivity {
             Toast.makeText(this,"Debes llenar los campos correctamente", Toast.LENGTH_SHORT).show();
         }
     }
-    public void obtenerToma(View view){
-        final TimePickerDialog reloj = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-                //Usamos calendar por la facilidad de mostrar la hora
-                Calendar horaCompleta = Calendar.getInstance();
-                horaCompleta.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                horaCompleta.set(Calendar.MINUTE, minute);
-                horaCompleta.set(Calendar.SECOND, 0);
+    //Funcion del date picker
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
 
-                hora = hourOfDay;
-                minutos = minute;
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.YEAR, year);
 
-                //Mostramos al usuario la hora seleccionada
-                primeraToma.setText(DateFormat.getTimeInstance(DateFormat.SHORT).format(horaCompleta.getTime()));
-            }
-        },hora, minutos,false);
-        reloj.show();
+        updateDateText(c);
     }
-    public void obtenerIntervalo(View view){
-        final TimePickerDialog reloj = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                //Usamos calendar por la facilidad de mostrar la hora
-                Calendar horaCompleta = Calendar.getInstance();
-                horaCompleta.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                horaCompleta.set(Calendar.MINUTE, minute);
-                horaCompleta.set(Calendar.SECOND, 0);
-
-                periodoHoras = hourOfDay;
-                periodoMinutos = minute;
-
-                //Mostramos al usuario la hora seleccionada
-                periodoMedicina.setText(String.format("%02d:%02d", periodoHoras, periodoMinutos));
-            }
-        },periodoHoras, periodoMinutos,false);
-        reloj.show();
+    private void updateDateText(Calendar c) {
+        String dateText = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+        mostrarFecha.setText(dateText);
     }
+
+    //Funcion del time picker
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        Calendar c = Calendar.getInstance();
+
+        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        c.set(Calendar.MINUTE, minute);
+        c.set(Calendar.SECOND, 0);
+
+        updateTimeText(c);
+    }
+    private void updateTimeText(Calendar c) {
+        String timeText = DateFormat.getTimeInstance(DateFormat.SHORT).format(c.getTime());
+        mostrarHora.setText(timeText);
+    }
+
+    //Funcion que permite ingresar al alert receiver cada 10 segundos para verificar si se debe de activar alguna alarma
+    private void startAlarm() {
+        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),10*1000, pendingIntent);
+
+    }
+
     public void regresar(View view){
         Intent regresar = new Intent(this, MainActivity.class);
         startActivity(regresar);

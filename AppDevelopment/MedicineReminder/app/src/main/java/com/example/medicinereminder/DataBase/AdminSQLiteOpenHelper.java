@@ -18,16 +18,16 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase BaseDatos) {
         BaseDatos.execSQL("create table datos(" +
-                "posicion int primary key, nombre text,horas int, minutos int, periodoHoras int, periodoMinutos int, duracion int,notas text)");
+                "posicion int primary key, nombre text, periodoHoras int, periodoMinutos int, duracion int,notas text, fecha date, hora time)");
         /**
          * posicion = numero de medicina agregada
          * nombre = nombre de la medicina
-         * horas = hora de primera toma del dia
-         * minutos = minutos de primera toma del dia
          * periodoHoras = horas que deberian pasar para tomar la medicina
          * periodoMinutos = minutos sobre la hora que deberian pasar para tomar la medicina
          * duracion = dias que el usuario tomara la medicina
-         * notas = notas adicionales
+         * notas = notas adicionaes
+         * fecha = fecha a partir de la cual la alarma se activará
+         * hora = hora a partir de la cual la alarma se activará
          */
     }
 
@@ -35,16 +35,16 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table if exists datos");
         db.execSQL("create table datos(" +
-                "posicion int primary key, nombre text,horas int, minutos int, periodoHoras int, periodoMinutos int, duracion int,notas text)");
+                "posicion int primary key, nombre text, periodoHoras int, periodoMinutos int, duracion int,notas text, fecha date, hora time)");
         /**
          * posicion = numero de medicina agregada
          * nombre = nombre de la medicina
-         * horas = hora de primera toma del dia
-         * minutos = minutos de primera toma del dia
          * periodoHoras = horas que deberian pasar para tomar la medicina
          * periodoMinutos = minutos sobre la hora que deberian pasar para tomar la medicina
          * duracion = dias que el usuario tomara la medicina
-         * notas = notas adicionales
+         * notas = notas adicionaes
+         * fecha = fecha a partir de la cual la alarma se activará
+         * hora = hora a partir de la cual la alarma se activará
          */
     }
 

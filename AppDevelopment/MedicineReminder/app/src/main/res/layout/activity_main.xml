@@ -93,7 +93,8 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/basura_icon" />
+                    android:src="@drawable/basura_icon"
+                    android:onClick="eliminar"/>
 
             </RelativeLayout>
 

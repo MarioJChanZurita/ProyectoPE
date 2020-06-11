@@ -6,18 +6,18 @@
     <string name="alarms">Alarms</string>
 
     <string name="pistaNombre">Nombre de medicina</string>
-    <string name="pistaHoras">Hora de primera toma</string>
-    <string name="pistaMinutos">Intervalo para la toma</string>
+    <string name="pistaHoras">Hora para la medicina</string>
+    <string name="pistaMinutos">Minutos para la medicina</string>
     <string name="pistaDuracion">Duracion (dias)</string>
     <string name="pistaNotas">Notas</string>
     <string name="botonesGuardar">guardar</string>
     <string name="botonEditar">Editar</string>
     <string name="editarAlarma">Editar alarma</string>
+    <string name="eliminarAlarma">Eliminar</string>
 
     <string name="borrar">Borrar</string>
     <string name="asistente">Asistente</string>
     <string name="editar">Editar</string>
-    <string name="eliminarAlarma">Eliminar</string>
 
     <string name="Buscar_hint"><font size="14">Buscar...</font></string>
 
