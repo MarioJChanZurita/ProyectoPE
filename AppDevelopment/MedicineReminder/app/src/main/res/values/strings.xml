@@ -17,6 +17,7 @@
     <string name="borrar">Borrar</string>
     <string name="asistente">Asistente</string>
     <string name="editar">Editar</string>
+    <string name="eliminarAlarma">Eliminar</string>
 
     <string name="Buscar_hint"><font size="14">Buscar...</font></string>
 

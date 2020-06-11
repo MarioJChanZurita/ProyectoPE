@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.example.medicinereminder.Alarma.BorrarAlarma;
 import com.example.medicinereminder.Alarma.ModificarAlarma;
 import com.example.medicinereminder.Alarma.NuevaAlarma;
 import com.example.medicinereminder.DataBase.AdminSQLiteOpenHelper;
@@ -49,6 +50,12 @@ public class MainActivity extends AppCompatActivity {
     public void modificar(View view){
         Intent modificar = new Intent(this, ModificarAlarma.class);
         startActivity(modificar);
+    }
+
+    //funcion para ir al activity de eliminar alarma
+    public void eliminar(View view){
+        Intent eliminar = new Intent(this, BorrarAlarma.class);
+        startActivity(eliminar);
     }
 
     //Funcion para obtener todas las alarmas que se van a mostrar en el recycler view

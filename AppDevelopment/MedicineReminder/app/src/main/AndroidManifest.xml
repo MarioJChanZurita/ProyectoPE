@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Alarma.BorrarAlarma"></activity>
         <activity android:name=".Alarma.ModificarAlarma" />
         <activity android:name=".Alarma.NuevaAlarma" />
         <activity android:name=".MainActivity">
