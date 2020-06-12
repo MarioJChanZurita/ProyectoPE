@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    tools:context=".Alarma.BorrarAlarma">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="30dp">
+
+        <ImageView
+            android:id="@+id/back_pressed_login"
+            android:layout_width="40dp"
+            android:layout_height="31dp"
+            android:src="@drawable/icon_back"
+            android:onClick="regresar"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Eliminar alarma"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/polis_regular"
+            android:textSize="24sp"
+            android:textColor="@color/black"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/nombreAlarmas"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:layout_marginTop="16dp"/>
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/nombreMedicina"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:inputType="none"/>
+
+        <EditText
+            android:id="@+id/horasMedicina"
+            android:layout_width="144dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="36dp"
+            android:ems="10"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/minutosMedicina"
+            android:layout_width="144dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="36dp"
+            android:ems="10"
+            android:inputType="number"/>
+
+        <EditText
+            android:id="@+id/duracionMedicina"
+            android:layout_width="144dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="36dp"
+            android:autoText="true"
+            android:ems="10"
+            android:inputType="number"/>
+
+        <EditText
+            android:id="@+id/notasMedicina"
+            android:layout_width="320dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:gravity="top|left"
+            android:inputType="none" />
+
+
+        <Button
+            android:id="@+id/btEliminar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp"
+            android:onClick="eliminar"
+            android:text="@string/eliminarAlarma"
+            android:background="@color/black"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+</ScrollView>

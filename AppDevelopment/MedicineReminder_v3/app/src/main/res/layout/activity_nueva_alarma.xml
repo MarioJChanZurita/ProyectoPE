@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Alarma.NuevaAlarma">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="30dp">
+
+        <ImageView
+            android:id="@+id/back_pressed_login"
+            android:layout_width="40dp"
+            android:layout_height="31dp"
+            android:src="@drawable/icon_back"
+            android:onClick="regresar"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Agregar alarma"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/polis_regular"
+            android:textSize="24sp"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/nombreMedicina"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:ems="10"
+            android:hint="@string/pistaNombre"
+            android:inputType="none"/>
+
+        <EditText
+            android:id="@+id/horasMedicina"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:ems="10"
+            android:hint="@string/pistaHoras"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/minutosMedicina"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:ems="10"
+            android:hint="@string/pistaMinutos"
+            android:inputType="number"/>
+
+        <EditText
+            android:id="@+id/notasMedicina"
+            android:layout_width="320dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="@string/pistaNotas"
+            android:inputType="none"
+            android:isScrollContainer="false"
+            android:singleLine="false"/>
+
+        //----------------------------------
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:text="Inicio de Alarma"/>
+
+        <Button
+            android:layout_marginTop="24dp"
+            android:text="seleccione la fecha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/seleccionarFecha"
+            android:background="@color/black"
+            android:textColor="@color/white"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/fechaSeleccionada"
+            android:hint="fecha" />
+
+        <Button
+            android:text="seleccione la hora"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/seleccionarHora"
+            android:background="@color/black"
+            android:textColor="@color/white"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/horaSeleccionada"
+            android:hint="hora" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:text="Fin de Alarma"/>
+
+        <Button
+            android:layout_marginTop="24dp"
+            android:text="seleccione la fecha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/seleccionarFechaFinal"
+            android:background="@color/black"
+            android:textColor="@color/white"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/fechaFinalSeleccionada"
+            android:hint="fecha" />
+
+        //--------------------------------
+
+        <Button
+            android:id="@+id/guardar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:onClick="agregarDatos"
+            android:text="@string/botonesGuardar"
+            android:background="@color/black"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+</ScrollView>
