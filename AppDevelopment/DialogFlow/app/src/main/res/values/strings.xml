@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DialogFlow</string>
+
+    <string name="btn_voice">Presiona aquí</string>
+</resources>
