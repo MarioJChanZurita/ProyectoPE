@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.example.medicinereminder.DataBase.AdminSQLiteOpenHelper;
 import com.example.medicinereminder.MainActivity;
 import com.example.medicinereminder.Notificaciones.AlertReceiver;
+import com.example.medicinereminder.Notificaciones.IniciarAlarma;
 import com.example.medicinereminder.R;
 
 import java.text.DateFormat;
@@ -114,7 +115,8 @@ public class NuevaAlarma extends AppCompatActivity implements DatePickerDialog.O
             admin.agregarDatos(agregar);
 
             //Iniciamos el funcionamiento de la alarma
-            startAlarm();
+            IniciarAlarma iniciarAlarma = new IniciarAlarma();
+            iniciarAlarma.startAlarm(this);
 
             //Limpiamos los campos y avisamos al usuario del registro exitoso
             limpiado();
@@ -162,14 +164,6 @@ public class NuevaAlarma extends AppCompatActivity implements DatePickerDialog.O
     private void updateFinalDateText(Calendar c){
         String dateText = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
         mostrarFechaFinal.setText(dateText);
-    }
-
-    //Funcion que permite ingresar al alert receiver cada 10 segundos para verificar si se debe de activar alguna alarma
-    private void startAlarm() {
-        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),10*1000, pendingIntent);
     }
 
     public void obtenerPrimeraToma(View view){
