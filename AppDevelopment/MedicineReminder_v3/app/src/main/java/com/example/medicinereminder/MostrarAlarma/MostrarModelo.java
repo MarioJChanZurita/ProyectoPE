@@ -6,11 +6,13 @@ public class MostrarModelo {
     public MostrarModelo() {
     }
 
+    //Funcion constructora del modelo
     public MostrarModelo(String nombre, String notas) {
         this.nombre = nombre;
         this.notas = notas;
     }
 
+    //Funcion para obtener el nombre de cada alarma que se mostrara en la lista
     public String getNombre() {
         return nombre;
     }
@@ -19,6 +21,7 @@ public class MostrarModelo {
         this.nombre = nombre;
     }
 
+    //Funcion para obtener las notas de cada alarma que se mostrara en la lista
     public String getNotas() {
         return notas;
     }

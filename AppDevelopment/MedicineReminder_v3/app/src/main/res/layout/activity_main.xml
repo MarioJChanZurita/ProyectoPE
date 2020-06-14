@@ -12,23 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp">
-
-        <ImageView
-            android:id="@+id/mostrarNotificaciones"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@color/banner_background"
-            android:padding="5dp"
-            android:src="@drawable/icon_notifications" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_marginTop="60dp">
 
         <TextView
             android:id="@+id/app_name"
@@ -94,7 +78,7 @@
                     android:layout_height="30dp"
                     android:layout_centerInParent="true"
                     android:src="@drawable/basura_icon"
-                    android:onClick="eliminar"/>
+                    android:onClick="eliminarAlarma"/>
 
             </RelativeLayout>
 
@@ -155,7 +139,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_centerInParent="true"
-                android:onClick="modificar"
+                android:onClick="modificarAlarma"
                 android:src="@drawable/edit_icon" />
 
         </RelativeLayout>
@@ -186,7 +170,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_centerInParent="true"
-                    android:onClick="mostrar"
+                    android:onClick="mostrarAlarma"
                     android:src="@drawable/alarms_icon"/>
 
             </RelativeLayout>
@@ -239,7 +223,7 @@
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:src="@drawable/icon_add"
-            android:onClick="agregar"/>
+            android:onClick="agregarAlarma"/>
 
 
     </RelativeLayout>

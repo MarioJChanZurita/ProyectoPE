@@ -38,7 +38,7 @@ public class MostrarAlarmas extends AppCompatActivity {
         //Abrimos la base de datos
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
         SQLiteDatabase baseDatos = admin.getWritableDatabase();
-        Cursor lista = baseDatos.rawQuery("SELECT * FROM datos", null);
+        Cursor lista = admin.obtenerAlarmas();
         //Creamos una lista y alamcenamos en ella el nombre y notas de todas las alarmas
         List<MostrarModelo> mostrar = new ArrayList<>();
         if(lista.moveToFirst()){
@@ -51,6 +51,7 @@ public class MostrarAlarmas extends AppCompatActivity {
         return mostrar;
     }
 
+    //Funcion para regresar al Main Activity
     public void regresar(View view) {
         Intent regresar = new Intent(this, MainActivity.class);
         startActivity(regresar);

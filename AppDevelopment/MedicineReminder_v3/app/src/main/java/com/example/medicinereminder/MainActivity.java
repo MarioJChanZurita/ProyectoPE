@@ -32,36 +32,35 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        //Recycler View donde se muestran las alarmas
+        //Recycler View para mostrar la lista de las alarmas activas
         RecyclerView recyclerViewAlarma = (RecyclerView)findViewById(R.id.recyclerAlarmas);
         recyclerViewAlarma.setLayoutManager(new LinearLayoutManager(this));
 
         MostrarAdaptador mostrarAdaptador = new MostrarAdaptador(mostrarAlarmas());
         recyclerViewAlarma.setAdapter(mostrarAdaptador);
 
-
     }
 
     //funcion para ir al activity de agregar alarma
-    public void agregar(View view){
+    public void agregarAlarma(View view){
         Intent agregar = new Intent(this, NuevaAlarma.class);
         startActivity(agregar);
     }
 
     //funcion para ir al activiy de modificar alarma
-    public void modificar(View view){
+    public void modificarAlarma(View view){
         Intent modificar = new Intent(this, ModificarAlarma.class);
         startActivity(modificar);
     }
 
     //funcion para ir al activity de eliminar alarma
-    public void eliminar(View view){
+    public void eliminarAlarma(View view){
         Intent eliminar = new Intent(this, BorrarAlarma.class);
         startActivity(eliminar);
     }
 
     //funcion para ir al activity de mostrar todas las alarmas
-    public void mostrar(View view){
+    public void mostrarAlarma(View view){
         Intent mostrar = new Intent(this, MostrarAlarmas.class);
         startActivity(mostrar);
     }
@@ -73,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase baseDatos = admin.getWritableDatabase();
 
         //Seleccionamos de la base de datos unicamente las alarmas activas y las mostramos
-        Cursor lista = baseDatos.rawQuery("SELECT * FROM datos WHERE activar="+1, null);
+        Cursor lista = admin.obtenerAlarmasActivas();
         //Creamos una lista y alamcenamos en ella el nombre y notas de todas las alarmas
         List<MostrarModelo> mostrar = new ArrayList<>();
         if(lista.moveToFirst()){

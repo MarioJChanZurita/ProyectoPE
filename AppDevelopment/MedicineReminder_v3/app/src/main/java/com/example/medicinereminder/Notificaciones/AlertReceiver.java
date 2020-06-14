@@ -35,7 +35,7 @@ public class AlertReceiver extends BroadcastReceiver {
 
         //Hacemos una comparación entre las fechas y horas para activar la notificacion
         if(baseDatos!=null){
-            Cursor fila = baseDatos.rawQuery("SELECT * FROM datos WHERE activar='"+1+"' AND fecha ='"+fecha_sistema+"' AND hora = '"+hora_sistema+"'",null);
+            Cursor fila = admin.obtenerAlarmaActivarse(fecha_sistema,hora_sistema);
             if(fila.moveToFirst()){
 
                 //Obtenemos los valores de nombre de alarma y notas para mostrar en la notificacion

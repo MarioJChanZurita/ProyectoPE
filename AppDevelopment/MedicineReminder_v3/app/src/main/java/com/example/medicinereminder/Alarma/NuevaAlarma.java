@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -47,10 +48,8 @@ public class NuevaAlarma extends AppCompatActivity implements TimePickerDialog.O
         horasMedicina = (EditText)findViewById(R.id.horasMedicina);
         minutosMedicina = (EditText)findViewById(R.id.minutosMedicina);
         notasMedicina = (EditText)findViewById(R.id.notasMedicina);
-
         mostrarFecha = (EditText) findViewById(R.id.fechaSeleccionada);
         mostrarHora = (EditText) findViewById(R.id.horaSeleccionada);
-
         mostrarFechaFinal = (EditText)findViewById(R.id.fechaFinalSeleccionada);
 
         //boton para abrir el date picker y seleccionar la fecha
@@ -73,6 +72,7 @@ public class NuevaAlarma extends AppCompatActivity implements TimePickerDialog.O
             }
         });
 
+        //boton para abrir el date picker y seleccionar la fecha en la que se deberá auto desactivar la alarma
         Button btFinalDate = (Button) findViewById(R.id.seleccionarFechaFinal);
         btFinalDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,10 +94,8 @@ public class NuevaAlarma extends AppCompatActivity implements TimePickerDialog.O
         String hrs = horasMedicina.getText().toString();
         String min = minutosMedicina.getText().toString();
         String notas = notasMedicina.getText().toString();
-
         String fecha = mostrarFecha.getText().toString();
         String hora = mostrarHora.getText().toString();
-
         String fechaFinal = mostrarFechaFinal.getText().toString();
 
         //Verificamos que todos los campos estan llenados
@@ -107,9 +105,8 @@ public class NuevaAlarma extends AppCompatActivity implements TimePickerDialog.O
             int horas = Integer.parseInt(hrs);
             int minutos = Integer.parseInt(min);
 
-
             //Obtenemos la ultima posicion de la base de datos
-            Cursor fila = baseDatos.rawQuery("SELECT posicion FROM datos", null);
+            Cursor fila = admin.obtenerPosicionesAlarmas();
             //Verificamos si existen mas datos en la BD
             if(fila != null){
                 //Nos posicionamos a la ultima posicion
@@ -126,10 +123,8 @@ public class NuevaAlarma extends AppCompatActivity implements TimePickerDialog.O
             agregar.put("periodoHoras", horas);
             agregar.put("periodoMinutos", minutos);
             agregar.put("notas", notas);
-
             agregar.put("fecha", fecha);
             agregar.put("hora", hora);
-
             agregar.put("fechaFinal", fechaFinal);
 
             //Agregamos y cerramos la base de datos
@@ -139,6 +134,7 @@ public class NuevaAlarma extends AppCompatActivity implements TimePickerDialog.O
             //Limpiamos los campos y avisamos al usuario del registro exitoso
             limpiado();
 
+            //Iniciamos el funcionamiento de la alarma
             startAlarm();
 
             Toast.makeText(this, "Medicina almacenada", Toast.LENGTH_SHORT).show();
@@ -154,10 +150,8 @@ public class NuevaAlarma extends AppCompatActivity implements TimePickerDialog.O
         horasMedicina.setText("");
         minutosMedicina.setText("");
         notasMedicina.setText("");
-
         mostrarFecha.setText("");
         mostrarHora.setText("");
-
         mostrarFechaFinal.setText("");
     }
 
@@ -166,20 +160,25 @@ public class NuevaAlarma extends AppCompatActivity implements TimePickerDialog.O
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
 
+        //Obtenemos el dia, mes, año seleccionado por el usuario al abrir el date picker
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.YEAR, year);
 
+        //Revisamos en cual Text View se debe de mostrar la fecha seleccionada
         if(mostrarFecha.getText().toString().isEmpty()){
             updateDateText(c);
         }else{
             updateFinalDateText(c);
         }
     }
+
+    //Funcion para colocar la fecha seleccionada en la fecha de inicio de la alarma
     private void updateDateText(Calendar c) {
         String dateText = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
         mostrarFecha.setText(dateText);
     }
+    //Funcion para colocar la fecha seleccionada en la fecha final de la alarma
     private void updateFinalDateText(Calendar c){
         String dateText = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
         mostrarFechaFinal.setText(dateText);
@@ -190,12 +189,15 @@ public class NuevaAlarma extends AppCompatActivity implements TimePickerDialog.O
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         Calendar c = Calendar.getInstance();
 
+        //Obtenemos las horas y minutos seleccionados por el usuario en el time picker
         c.set(Calendar.HOUR_OF_DAY, hourOfDay);
         c.set(Calendar.MINUTE, minute);
         c.set(Calendar.SECOND, 0);
 
+        //Colocamos la hora en su respectivo Text View
         updateTimeText(c);
     }
+    //Funcion para colocar la hora seleccionada como la hora de inicio de la alarma
     private void updateTimeText(Calendar c) {
         String timeText = DateFormat.getTimeInstance(DateFormat.SHORT).format(c.getTime());
         mostrarHora.setText(timeText);
@@ -209,6 +211,7 @@ public class NuevaAlarma extends AppCompatActivity implements TimePickerDialog.O
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),10*1000, pendingIntent);
     }
 
+    //Funcion para regresar al Main Activity
     public void regresar(View view){
         Intent regresar = new Intent(this, MainActivity.class);
         startActivity(regresar);

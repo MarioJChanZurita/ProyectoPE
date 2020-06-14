@@ -91,20 +91,21 @@ public class ModificarAlarma extends AppCompatActivity implements TimePickerDial
             }
         });
 
+        //Creamos el spinner donde se muestra la lista de las alarmas creadas
         spinnerAlarmas(generarLista());
     }
 
-    //Funcion que genera la lista de
+    //Funcion que genera la lista de alarmas
     public ArrayList<String> generarLista(){
         //Cosas para acceder a la base de datos
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
-        SQLiteDatabase baseDatos = admin.getWritableDatabase(); //Abre la base de datos en modo escritura
 
         //Lista dinamica de nombres de alarmas
         final ArrayList<String> nombresAlarmas = new ArrayList<String>();
 
         //Sistema para agregar los demas nombres
-        Cursor lista = baseDatos.rawQuery("SELECT nombre FROM datos", null);
+        //Cursor lista = baseDatos.rawQuery("SELECT nombre FROM datos", null);
+        Cursor lista = admin.obtenerNombresAlarmas();
         if((lista != null) && lista.moveToFirst()){
             nombresAlarmas.add(""); //Asi la primera opcion está vacia
             //Ciclo para agregar casi todos los elementos de la lista
@@ -117,10 +118,10 @@ public class ModificarAlarma extends AppCompatActivity implements TimePickerDial
             nombresAlarmas.add(lista.getString(0));
         }
         //Cerramos la base de datos y regresamos el arreglo
-        baseDatos.close();
         return  nombresAlarmas;
     };
 
+    //Funcion que crea el spinner con la lista de alarmas
     public void spinnerAlarmas(ArrayList<String> Alarmas){
         //Generar el spiner
         ArrayAdapter<String> spinnerNombres = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, Alarmas);
@@ -138,22 +139,22 @@ public class ModificarAlarma extends AppCompatActivity implements TimePickerDial
             }
         });
     }
+
+    //Funcion para cargar los datos respectivos de la alarma seleccionada en los campos
     public void cargarDatos(int seleccion){
         //Cosas para acceder a la base de datos
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
-        SQLiteDatabase baseDatos = admin.getWritableDatabase(); //Abre la base de datos en modo escritura
         if(seleccion !=0){
-            Cursor datosAlarma = baseDatos.rawQuery("Select * From datos Where posicion="+seleccion,null);
+            Cursor datosAlarma = admin.obtenerAlarmaSeleccionada(seleccion);
             if(datosAlarma.moveToFirst()){
                 nombreMedicina.setText(datosAlarma.getString(2));
                 horasMedicina.setText(datosAlarma.getString(3));
                 minutosMedicina.setText(datosAlarma.getString(4));
                 notasMedicina.setText(datosAlarma.getString(5));
-
                 mostrarFecha.setText(datosAlarma.getString(6));
                 mostrarHora.setText(datosAlarma.getString(7));
-
                 mostrarFechaFinal.setText(datosAlarma.getString(8));
+
                 //traemos el valor de activar para saber mostrar si esta activada o no la alarma
                 int activar = datosAlarma.getInt(1);
                 if(activar == 1) {
@@ -163,6 +164,7 @@ public class ModificarAlarma extends AppCompatActivity implements TimePickerDial
         }
     }
 
+    //Funcion que modifica mediante una actualizacion en la base de datos los cambios hechos por el usuario
     public void modificar(View view){
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
         final SQLiteDatabase baseDatos = admin.getWritableDatabase(); //Abre la base de datos en modo escritura
@@ -173,11 +175,22 @@ public class ModificarAlarma extends AppCompatActivity implements TimePickerDial
         String hrs = horasMedicina.getText().toString();
         String min = minutosMedicina.getText().toString();
         String nota = notasMedicina.getText().toString();
-
         String fecha = mostrarFecha.getText().toString();
         String hora = mostrarHora.getText().toString();
-
         String fechaFinal = mostrarFechaFinal.getText().toString();
+
+        //Checamos el swith para ver si la alarma esta activada o desactivada y lo actualizamos en la base de datos
+        if(switchAlarma.isChecked()){
+            int activar = 1;
+            ContentValues modificarActivar = new ContentValues();
+            modificarActivar.put("activar", activar);
+            baseDatos.update("datos", modificarActivar,"posicion="+opcion, null);
+        }else{
+            int activar = 0;
+            ContentValues modificarActivar = new ContentValues();
+            modificarActivar.put("activar", activar);
+            baseDatos.update("datos", modificarActivar,"posicion="+opcion, null);
+        }
 
         //verificamos que los campos estan llenos
         if(!nombre.isEmpty() && !hrs.isEmpty() && !min.isEmpty()){
@@ -190,13 +203,12 @@ public class ModificarAlarma extends AppCompatActivity implements TimePickerDial
             modificar.put("periodoHoras", horas);
             modificar.put("periodoMinutos", minutos);
             modificar.put("notas", nota);
-
             modificar.put("fecha", fecha);
             modificar.put("hora", hora);
             modificar.put("fechaFinal", fechaFinal);
-
             int modificacion = baseDatos.update("datos", modificar,"posicion="+opcion, null);
 
+            //Iniciamos el funcionamiento de la alarma
             startAlarm();
 
             //Vemos si se modifico la base de datos
@@ -216,20 +228,25 @@ public class ModificarAlarma extends AppCompatActivity implements TimePickerDial
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
 
+        //Obtenemos el dia, mes, año seleccionado por el usuario al abrir el date picker
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.YEAR, year);
 
+        //Revisamos en cual Text View se debe de mostrar la fecha seleccionada
         if(!mostrarFecha.getText().toString().isEmpty()){
             updateDateText(c);
         }else{
             updateFinalDateText(c);
         }
     }
+
+    //Funcion para colocar la fecha seleccionada en la fecha de inicio de la alarma
     private void updateDateText(Calendar c) {
         String dateText = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
         mostrarFecha.setText(dateText);
     }
+    //Funcion para colocar la fecha seleccionada en la fecha final de la alarma
     private void updateFinalDateText(Calendar c){
         String dateText = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
         mostrarFechaFinal.setText(dateText);
@@ -240,12 +257,15 @@ public class ModificarAlarma extends AppCompatActivity implements TimePickerDial
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         Calendar c = Calendar.getInstance();
 
+        //Obtenemos las horas y minutos seleccionados por el usuario en el time picker
         c.set(Calendar.HOUR_OF_DAY, hourOfDay);
         c.set(Calendar.MINUTE, minute);
         c.set(Calendar.SECOND, 0);
 
+        //Colocamos la hora en su respectivo Text view
         updateTimeText(c);
     }
+    //Funcion para colocar la hora seleccionada como la hora de inicio de la alarma
     private void updateTimeText(Calendar c) {
         String timeText = DateFormat.getTimeInstance(DateFormat.SHORT).format(c.getTime());
         mostrarHora.setText(timeText);
@@ -260,28 +280,7 @@ public class ModificarAlarma extends AppCompatActivity implements TimePickerDial
 
     }
 
-    //Funcion para activar o desactivar la alarma
-    public void activacion(View view) {
-
-        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
-        SQLiteDatabase baseDatos = admin.getWritableDatabase(); //Abre la base de datos en modo escritura
-
-        int opcion = nombreAlarmas.getSelectedItemPosition();
-        if(switchAlarma.isChecked()){
-            int activar = 1;
-            ContentValues modificarActivar = new ContentValues();
-            modificarActivar.put("activar", activar);
-            baseDatos.update("datos", modificarActivar,"posicion="+opcion, null);
-        }else{
-            int activar = 0;
-            ContentValues modificarActivar = new ContentValues();
-            modificarActivar.put("activar", activar);
-            baseDatos.update("datos", modificarActivar,"posicion="+opcion, null);
-        }
-
-        baseDatos.close();
-    }
-
+    //Funcion para regresar al Main Activity
     public void regresar(View view){
         Intent regresar = new Intent(this, MainActivity.class);
         startActivity(regresar);
