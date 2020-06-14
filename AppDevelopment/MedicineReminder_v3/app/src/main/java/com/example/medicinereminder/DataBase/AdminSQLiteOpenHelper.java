@@ -1,4 +1,5 @@
 package com.example.medicinereminder.DataBase;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -50,6 +51,19 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
          * hora = hora a partir de la cual la alarma se activará
          * fechaFinal = fecha en la que se desactivará la alarma
          */
+    }
+    public void agregarDatos(ContentValues agregar){
+        SQLiteDatabase baseDatos = getWritableDatabase(); //Abre la base de datos en modo escritura
+        baseDatos.insert("datos", null, agregar);
+        baseDatos.close();
+    }
+
+    public int modificarDatos(ContentValues modificar, int opcionSeleccionada){
+        SQLiteDatabase baseDatos = getWritableDatabase(); //Abre la base de datos en modo escritura
+        int modificado = baseDatos.update("datos", modificar,"posicion="+opcionSeleccionada, null);
+
+        return modificado;
+
     }
 
     //Funcion para obtener solamente las alarmas que se encuentran activas

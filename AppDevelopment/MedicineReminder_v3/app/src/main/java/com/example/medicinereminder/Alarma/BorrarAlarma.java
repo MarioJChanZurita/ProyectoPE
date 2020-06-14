@@ -33,8 +33,8 @@ public class BorrarAlarma extends AppCompatActivity {
         //Creamos los objetos de la pantalla
         nombreAlarmas = (Spinner) findViewById(R.id.nombreAlarmas);
         nombreMedicina = (EditText) findViewById(R.id.nombreMedicina);
-        horasMedicina = (EditText) findViewById(R.id.horasMedicina);
-        minutosMedicina = (EditText) findViewById(R.id.minutosMedicina);
+        horasMedicina = (EditText) findViewById(R.id.horaMedicina);
+        minutosMedicina = (EditText) findViewById(R.id.periodoMedicina);
         notasMedicina = (EditText) findViewById(R.id.notasMedicina);
 
         //Creamos el spinner donde se muestra la lista de las alarmas creadas
