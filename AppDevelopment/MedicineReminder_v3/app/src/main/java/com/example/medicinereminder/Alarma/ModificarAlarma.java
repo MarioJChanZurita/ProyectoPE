@@ -84,25 +84,32 @@ public class ModificarAlarma extends AppCompatActivity implements DatePickerDial
             }
         });
 
-        Bundle busqueda = this.getIntent().getExtras();
-        opcion = busqueda.getInt("posicion");
-        cargarDatos(opcion);
+
+        Bundle extras = getIntent().getExtras();
+        String nombreAlarma = extras.getString("nombre");
+        Cursor alarmaBuscada = obtenerAlarma(nombreAlarma);
+
+        cargarDatos(alarmaBuscada);
 
     }
 
-    //Funcion para cargar los datos respectivos de la alarma seleccionada en los campos
-    public void cargarDatos(int seleccion) {
-        //Cosas para acceder a la base de datos
+    public Cursor obtenerAlarma(String nombre){
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
+        Cursor alarmaBuscada = admin.obtenerAlarmaBuscada(nombre);
+        return alarmaBuscada;
+    }
 
 
-        Cursor datosAlarma = admin.obtenerAlarmaSeleccionada(seleccion);
+    //Funcion para cargar los datos respectivos de la alarma seleccionada en los campos
+    public void cargarDatos(Cursor datosAlarma) {
+
         if (datosAlarma.moveToFirst()) {
             //Con esto conseguimos que los timePicker inicien con la hora puesta por el usuario
-            periodoHoras = datosAlarma.getInt(3);
-            periodoMinutos = datosAlarma.getInt(4);
+            opcion = datosAlarma.getInt(0);
 
             nombreMedicina.setText(datosAlarma.getString(2));
+            periodoHoras = datosAlarma.getInt(3);
+            periodoMinutos = datosAlarma.getInt(4);
             periodoMedicina.setText(String.format("%02d:%02d", periodoHoras, periodoMinutos));
             notasMedicina.setText(datosAlarma.getString(5));
             mostrarFecha.setText(datosAlarma.getString(6));
@@ -118,10 +125,13 @@ public class ModificarAlarma extends AppCompatActivity implements DatePickerDial
 
     }
 
+
     //Funcion que modifica mediante una actualizacion en la base de datos los cambios hechos por el usuario
+
     public void modificar(View view) {
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
         final SQLiteDatabase baseDatos = admin.getWritableDatabase(); //Abre la base de datos en modo escritura
+
 
         //Obtenemos los valores de los campos correspondientes
         String nombre = nombreMedicina.getText().toString();

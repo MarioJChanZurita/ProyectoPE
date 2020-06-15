@@ -1,27 +1,58 @@
 package com.example.medicinereminder.MostrarAlarma;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.medicinereminder.Alarma.ModificarAlarma;
+import com.example.medicinereminder.MainActivity;
 import com.example.medicinereminder.R;
 
 import java.util.List;
 
 public class MostrarAdaptador extends RecyclerView.Adapter<MostrarAdaptador.ViewHolder> {
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView nombre, notas;
+        CardView alarma;
+        Context context;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            context = itemView.getContext();
+
             nombre = (TextView)itemView.findViewById(R.id.nombreMedicina);
             notas = (TextView)itemView.findViewById(R.id.notasMedicina);
+
+            alarma = (CardView) itemView.findViewById(R.id.cardViewAlarma);
+        }
+
+        void setOnClickListeners(){
+            alarma.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch(v.getId()){
+                case R.id.cardViewAlarma:
+
+                    Intent modificar = new Intent(context, ModificarAlarma.class);
+                    modificar.putExtra("nombre", nombre.getText());
+                    context.startActivity(modificar);
+
+                    break;
+            }
         }
     }
 
@@ -45,6 +76,9 @@ public class MostrarAdaptador extends RecyclerView.Adapter<MostrarAdaptador.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.nombre.setText(alarmaLista.get(position).getNombre());
         holder.notas.setText(alarmaLista.get(position).getNotas());
+
+        //colocar eventos
+        holder.setOnClickListeners();
     }
 
     //Funcion que establece cuantos elementos tendrá la lista

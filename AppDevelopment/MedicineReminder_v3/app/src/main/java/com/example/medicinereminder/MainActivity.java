@@ -13,6 +13,7 @@ import android.view.WindowManager;
 
 import com.example.medicinereminder.Alarma.BorrarAlarma;
 import com.example.medicinereminder.Alarma.BuscarAlarma;
+import com.example.medicinereminder.Alarma.ModificarAlarma;
 import com.example.medicinereminder.Alarma.NuevaAlarma;
 import com.example.medicinereminder.DataBase.AdminSQLiteOpenHelper;
 import com.example.medicinereminder.MostrarAlarma.MostrarAdaptador;
@@ -84,4 +85,5 @@ public class MainActivity extends AppCompatActivity {
         //Regresamos la lista
         return mostrar;
     }
+
 }
