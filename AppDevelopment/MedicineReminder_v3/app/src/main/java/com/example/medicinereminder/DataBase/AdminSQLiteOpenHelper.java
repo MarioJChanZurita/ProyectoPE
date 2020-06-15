@@ -111,7 +111,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
     //Funcion para obtener alarma buscada
     public Cursor obtenerAlarmaBuscada (String nombre){
         SQLiteDatabase baseDatos = getWritableDatabase();
-        Cursor alarmaBuscada = baseDatos.rawQuery("SELECT * FROM datos WHERE nombre="+nombre,null);
+        Cursor alarmaBuscada = baseDatos.rawQuery("SELECT posicion FROM datos WHERE nombre="+nombre,null);
         return alarmaBuscada;
     }
 

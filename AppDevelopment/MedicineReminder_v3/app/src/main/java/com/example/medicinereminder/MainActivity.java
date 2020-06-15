@@ -3,7 +3,6 @@ package com.example.medicinereminder;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -15,7 +14,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.medicinereminder.Alarma.BorrarAlarma;
-import com.example.medicinereminder.Alarma.BuscarAlarma;
 import com.example.medicinereminder.Alarma.ModificarAlarma;
 import com.example.medicinereminder.Alarma.NuevaAlarma;
 import com.example.medicinereminder.DataBase.AdminSQLiteOpenHelper;
@@ -49,12 +47,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buscarAlarma(View view) {
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
+
         String nombre = buscarAlarma.getText().toString();
+
+        Cursor alarmaBuscada = admin.obtenerAlarmaBuscada(nombre);
+
+        int posicion = alarmaBuscada.getInt(0);
 
         if (!nombre.isEmpty()) {
             Bundle busqueda = new Bundle();
-            busqueda.putString("nombre", nombre);
-            Intent buscar = new Intent(this, BuscarAlarma.class);
+            busqueda.putInt("posicion", posicion);
+            Intent buscar = new Intent(this, ModificarAlarma.class);
             buscar.putExtras(buscar);
             startActivity(buscar);
 
