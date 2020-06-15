@@ -7,9 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -30,12 +33,32 @@ public class BuscarAlarma extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscar_alarma);
 
+        EditText barra = (EditText)findViewById(R.id.barraBusqueda);
 
         ListView listView = findViewById(R.id.listaAlarmas);
         List<String> alarmas = alarmasLista();
 
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alarmas);
         listView.setAdapter(arrayAdapter);
+
+        barra.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                (BuscarAlarma.this).arrayAdapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
     }
 
     public List<String> alarmasLista(){
@@ -55,27 +78,4 @@ public class BuscarAlarma extends AppCompatActivity {
 
     }
 
-    public boolean onCreateOptionsMenu(Menu menu){
-
-        getMenuInflater().inflate(R.menu.item_barra, menu);
-        MenuItem menuItem = menu.findItem(R.id.search_icon);
-        SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setQueryHint("Searh Here");
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                arrayAdapter.getFilter().filter(newText);
-                return true;
-            }
-        });
-
-        return super.onCreateOptionsMenu(menu);
-
-    }
 }
