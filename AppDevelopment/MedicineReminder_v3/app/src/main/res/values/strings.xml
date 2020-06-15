@@ -21,7 +21,7 @@
     <string name="editar">Editar</string>
     <string name="mostrarAlarmas">Alarmas</string>
 
-    <string name="Buscar_hint"><font size="14">Buscar...</font></string>
+    <string name="buscar">Buscar</string>
 
 
 </resources>

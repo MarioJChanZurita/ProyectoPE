@@ -10,11 +10,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.medicinereminder.Alarma.BorrarAlarma;
-import com.example.medicinereminder.Alarma.ModificarAlarma;
+import com.example.medicinereminder.Alarma.BuscarAlarma;
 import com.example.medicinereminder.Alarma.NuevaAlarma;
 import com.example.medicinereminder.DataBase.AdminSQLiteOpenHelper;
 import com.example.medicinereminder.MostrarAlarma.MostrarAdaptador;
@@ -27,15 +25,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText buscarAlarma;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        buscarAlarma = (EditText) findViewById(R.id.buscarAlarma);
 
         //Recycler View para mostrar la lista de las alarmas activas
         RecyclerView recyclerViewAlarma = (RecyclerView) findViewById(R.id.recyclerAlarmas);
@@ -46,38 +41,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //funcion para ir al activity de buscar alarma
     public void buscarAlarma(View view) {
-        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
-
-        String nombre = buscarAlarma.getText().toString();
-
-        Cursor alarmaBuscada = admin.obtenerAlarmaBuscada(nombre);
-
-        int posicion = alarmaBuscada.getInt(0);
-
-        if (!nombre.isEmpty()) {
-            Bundle busqueda = new Bundle();
-            busqueda.putInt("posicion", posicion);
-            Intent buscar = new Intent(this, ModificarAlarma.class);
-            buscar.putExtras(buscar);
-            startActivity(buscar);
-
-        } else {
-            Toast.makeText(this, "Campo vacío", Toast.LENGTH_SHORT).show();
-        }
-
+        Intent buscar = new Intent(this, BuscarAlarma.class);
+        startActivity(buscar);
     }
 
     //funcion para ir al activity de agregar alarma
     public void agregarAlarma(View view) {
         Intent agregar = new Intent(this, NuevaAlarma.class);
         startActivity(agregar);
-    }
-
-    //funcion para ir al activiy de modificar alarma
-    public void modificarAlarma(View view) {
-        Intent modificar = new Intent(this, ModificarAlarma.class);
-        startActivity(modificar);
     }
 
     //funcion para ir al activity de eliminar alarma
