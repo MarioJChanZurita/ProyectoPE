@@ -31,12 +31,12 @@ import com.example.medicinereminder.R;
 import java.text.DateFormat;
 import java.util.Calendar;
 
-public class NuevaAlarma extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class NuevaAlarma extends AppCompatActivity{
 
     private EditText nombreMedicina, notasMedicina;
     private TextView horaMedicina, periodoMedicina, mostrarFechaFinal;
-    private String primeraToma;
-    private int hora, minutos, periodoHoras, periodoMinutos;
+    private String primeraToma, fechaFinal;
+    private int hora, minutos, periodoHoras, periodoMinutos, ano, dia, mes;
     private boolean verificadorHora1 = false, verificadorHora2 = false;
 
     @Override
@@ -49,19 +49,9 @@ public class NuevaAlarma extends AppCompatActivity implements DatePickerDialog.O
         horaMedicina = (TextView) findViewById(R.id.horaMedicina);
         periodoMedicina = (TextView) findViewById(R.id.periodoMedicina);
         notasMedicina = (EditText) findViewById(R.id.notasMedicina);
-        mostrarFechaFinal = (EditText) findViewById(R.id.fechaFinalSeleccionada);
+        mostrarFechaFinal = (TextView) findViewById(R.id.fechaFinalSeleccionada);
 
-
-        //boton para abrir el date picker y seleccionar la fecha en la que se deberá auto desactivar la alarma
-        Button btFinalDate = (Button) findViewById(R.id.seleccionarFechaFinal);
-        btFinalDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment finalDatePicker = new DatePickerFragment();
-                finalDatePicker.show(getSupportFragmentManager(), "final date picker");
-            }
-        });
-
+        correccionFecha();
     }
 
     //Funcion para agregar una medicina
@@ -71,7 +61,6 @@ public class NuevaAlarma extends AppCompatActivity implements DatePickerDialog.O
         //Obtenemos los valores de los campos correspondientes
         String nombre = nombreMedicina.getText().toString();
         String notas = notasMedicina.getText().toString();
-        String fechaFinal = mostrarFechaFinal.getText().toString();
 
         //Verificamos que los campos estan llenados
         if (!nombre.isEmpty() && verificadorHora1 && verificadorHora2) {
@@ -114,7 +103,6 @@ public class NuevaAlarma extends AppCompatActivity implements DatePickerDialog.O
             Toast.makeText(this, "Debes llenar todos los datos", Toast.LENGTH_SHORT).show();
         }
     }
-
     //Funcion que limpia los campos
     public void limpiado() {
         nombreMedicina.setText("");
@@ -123,26 +111,30 @@ public class NuevaAlarma extends AppCompatActivity implements DatePickerDialog.O
         notasMedicina.setText("");
         mostrarFechaFinal.setText("");
     }
-
-    //Funcion del date picker
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+    public void correccionFecha(){
         Calendar c = Calendar.getInstance();
-
-        //Obtenemos el dia, mes, año seleccionado por el usuario al abrir el date picker
-        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        c.set(Calendar.MONTH, month);
-        c.set(Calendar.YEAR, year);
-
-        //mostramos la fecha seleccionada
-        updateFinalDateText(c);
-
+        dia = c.get(Calendar.DAY_OF_MONTH);
+        mes = c.get(Calendar.MONTH);
+        ano = c.get(Calendar.YEAR);
     }
+    public void obtenerFecha(View view){
+        DatePickerDialog calendario = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Calendar fecha = Calendar.getInstance();
+                fecha.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                fecha.set(Calendar.MONTH, month);
+                fecha.set(Calendar.YEAR, year);
 
-    //Funcion para colocar la fecha seleccionada en la fecha final de la alarma
-    private void updateFinalDateText(Calendar c) {
-        String dateText = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
-        mostrarFechaFinal.setText(dateText);
+                ano = year;
+                mes = month;
+                dia = dayOfMonth;
+
+                fechaFinal = DateFormat.getDateInstance(DateFormat.FULL).format(fecha.getTime());
+                mostrarFechaFinal.setText(fechaFinal);
+            }
+        }, ano, mes, dia);
+        calendario.show();
     }
 
     public void obtenerPrimeraToma(View view) {
