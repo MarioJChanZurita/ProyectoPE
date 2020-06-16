@@ -43,14 +43,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
+    protected void onResume() {
+        super.onResume();
         //Recycler View para mostrar la lista de las alarmas activas
         RecyclerView recyclerViewAlarma = (RecyclerView) findViewById(R.id.recyclerAlarmas);
         recyclerViewAlarma.setLayoutManager(new LinearLayoutManager(this));
 
         MostrarAdaptador mostrarAdaptador = new MostrarAdaptador(mostrarAlarmas());
         recyclerViewAlarma.setAdapter(mostrarAdaptador);
-        super.onPause();
     }
 
     //funcion para ir al activity de buscar alarma

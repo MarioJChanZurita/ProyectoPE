@@ -183,8 +183,7 @@ public class NuevaAlarma extends AppCompatActivity{
 
     //Funcion para regresar al Main Activity
     public void regresar(View view) {
-        Intent regresar = new Intent(this, MainActivity.class);
-        startActivity(regresar);
+        finish();
     }
 
 }

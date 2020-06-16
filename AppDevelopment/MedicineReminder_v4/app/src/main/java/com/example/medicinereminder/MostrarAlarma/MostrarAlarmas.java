@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.example.medicinereminder.DataBase.AdminSQLiteOpenHelper;
 import com.example.medicinereminder.MainActivity;
@@ -22,6 +23,7 @@ public class MostrarAlarmas extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_mostrar_alarmas);
 
         //Recycler View donde se muestran las alarmas
@@ -53,7 +55,6 @@ public class MostrarAlarmas extends AppCompatActivity {
 
     //Funcion para regresar al Main Activity
     public void regresar(View view) {
-        Intent regresar = new Intent(this, MainActivity.class);
-        startActivity(regresar);
+        finish();
     }
 }

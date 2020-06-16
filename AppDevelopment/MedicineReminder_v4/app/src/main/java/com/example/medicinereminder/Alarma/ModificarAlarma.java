@@ -36,13 +36,13 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class ModificarAlarma extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class ModificarAlarma extends AppCompatActivity{
 
     private EditText nombreMedicina, notasMedicina;
     private TextView horaMedicina, periodoMedicina, mostrarFechaFinal;
     private SwitchCompat switchAlarma;
-    private int hora, minutos, periodoHoras, periodoMinutos, opcion;
-    private String primeraToma;
+    private int opcion, hora, minutos, periodoHoras, periodoMinutos, ano, mes, dia;
+    private String primeraToma, fechaFinal;
 
 
     @Override
@@ -60,22 +60,12 @@ public class ModificarAlarma extends AppCompatActivity implements DatePickerDial
         mostrarFechaFinal = (EditText) findViewById(R.id.fechaFinalSeleccionada);
         switchAlarma = findViewById(R.id.switchActivarAlarma);
 
-        //boton para abrir el date picker y seleccionar la fecha en la que se desactivará la alarma
-        Button btFinalDate = (Button) findViewById(R.id.seleccionarFechaFinal);
-        btFinalDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment finalTimePicker = new TimePickerFragment();
-                finalTimePicker.show(getSupportFragmentManager(), "final time picker");
-            }
-        });
-
-
         Bundle extras = getIntent().getExtras();
         String nombreAlarma = extras.getString("nombre");
         Cursor alarmaBuscada = obtenerAlarma(nombreAlarma);
 
         cargarDatos(alarmaBuscada);
+        correccionFecha();
 
     }
 
@@ -110,9 +100,7 @@ public class ModificarAlarma extends AppCompatActivity implements DatePickerDial
 
     }
 
-
     //Funcion que modifica mediante una actualizacion en la base de datos los cambios hechos por el usuario
-
     public void modificar(View view) {
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
         final SQLiteDatabase baseDatos = admin.getWritableDatabase(); //Abre la base de datos en modo escritura
@@ -163,21 +151,6 @@ public class ModificarAlarma extends AppCompatActivity implements DatePickerDial
         }
     }
 
-    //Funcion del date picker
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        Calendar c = Calendar.getInstance();
-
-        //Obtenemos el dia, mes, año seleccionado por el usuario al abrir el date picker
-        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        c.set(Calendar.MONTH, month);
-        c.set(Calendar.YEAR, year);
-
-        //mostramos la fecha seleccionada
-        updateFinalDateText(c);
-
-    }
-
     public void obtenerPrimeraToma(View view) {
         final TimePickerDialog reloj = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -220,12 +193,32 @@ public class ModificarAlarma extends AppCompatActivity implements DatePickerDial
         reloj.show();
     }
 
+    public void obtenerFecha(View view){
+        DatePickerDialog calendario = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Calendar fecha = Calendar.getInstance();
+                fecha.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                fecha.set(Calendar.MONTH, month);
+                fecha.set(Calendar.YEAR, year);
 
-    //Funcion para colocar la fecha seleccionada en la fecha final de la alarma
-    private void updateFinalDateText(Calendar c) {
-        String dateText = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
-        mostrarFechaFinal.setText(dateText);
+                ano = year;
+                mes = month;
+                dia = dayOfMonth;
+
+                fechaFinal = DateFormat.getDateInstance(DateFormat.FULL).format(fecha.getTime());
+                mostrarFechaFinal.setText(fechaFinal);
+            }
+        }, ano, mes, dia);
+        calendario.show();
     }
+    public void correccionFecha(){
+        Calendar c = Calendar.getInstance();
+        dia = c.get(Calendar.DAY_OF_MONTH);
+        mes = c.get(Calendar.MONTH);
+        ano = c.get(Calendar.YEAR);
+    }
+
 
     //Funcion para regresar al Main Activity
     public void regresar(View view) {

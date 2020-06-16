@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -36,11 +37,11 @@ public class BuscarAlarma extends AppCompatActivity {
 
     ArrayAdapter<String> arrayAdapter;
     ListView listView;
-    TextView Test;
     EditText barra;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_buscar_alarma);
 
         barra = (EditText)findViewById(R.id.barraBusqueda);
