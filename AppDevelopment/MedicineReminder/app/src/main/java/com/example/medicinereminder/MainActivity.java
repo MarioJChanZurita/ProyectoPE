@@ -10,7 +10,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -56,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements AIListener {
         MostrarAdaptador mostrarAdaptador = new MostrarAdaptador(mostrarAlarmas());
         recyclerViewAlarma.setAdapter(mostrarAdaptador);
 
+        //Asistente Inteligente
         validarOS();
         configuracionAsistente();
     }
@@ -105,6 +105,9 @@ public class MainActivity extends AppCompatActivity implements AIListener {
         //Regresamos la lista
         return mostrar;
     }
+
+
+    //-----------------Asistente Inteligente
 
     public void configuracionAsistente(){
         AIConfiguration config = new AIConfiguration("20a92088691b4097beaa1d6dd90ab4a2",
