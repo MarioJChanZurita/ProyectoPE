@@ -12,23 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp">
-
-        <ImageView
-            android:id="@+id/mostrarNotificaciones"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@color/banner_background"
-            android:padding="5dp"
-            android:src="@drawable/icon_notifications" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_marginTop="60dp">
 
         <TextView
             android:id="@+id/app_name"
@@ -40,33 +24,6 @@
             android:textColor="@color/black"
             android:textSize="24sp" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_below="@+id/app_name"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginBottom="20dp"
-            android:background="@color/white"
-            android:paddingLeft="10dp">
-
-            <EditText
-                android:id="@+id/Buscar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/Buscar_hint"
-                android:layout_marginRight="50dp"/>
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
-                android:src="@drawable/search_icon" />
-
-        </RelativeLayout>
 
     </RelativeLayout>
 
@@ -74,38 +31,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_margin="10dp"
-                android:background="@color/card1"
-                android:elevation="4dp">
-
-                <ImageView
-                    android:id="@+id/btBorrarMedicina"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/basura_icon"
-                    android:onClick="eliminar"/>
-
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/borrar"
-                android:textAlignment="center" />
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -124,7 +52,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_centerInParent="true"
-                    android:onClick="agregar"
+                    android:onClick="escucharAsistente"
                     android:src="@drawable/microphone_icon" />
 
             </RelativeLayout>
@@ -139,6 +67,37 @@
         </LinearLayout>
 
         <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:background="@color/card3"
+            android:elevation="4dp">
+
+            <ImageView
+                android:id="@+id/btBuscarAlarma"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:onClick="buscarAlarma"
+                android:src="@drawable/search_icon" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/buscar"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -147,16 +106,16 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="10dp"
-                android:background="@color/card3"
+                android:background="@color/card4"
                 android:elevation="4dp">
 
                 <ImageView
-                    android:id="@+id/btEditarAlarma"
+                    android:id="@+id/btMostrarAlarmas"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_centerInParent="true"
-                    android:onClick="modificar"
-                    android:src="@drawable/edit_icon" />
+                    android:onClick="mostrarAlarma"
+                    android:src="@drawable/alarms_icon"/>
 
             </RelativeLayout>
 
@@ -164,7 +123,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="@string/editar"
+                android:text="@string/mostrarAlarmas"
                 android:textAlignment="center" />
 
         </LinearLayout>
@@ -208,7 +167,7 @@
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:src="@drawable/icon_add"
-            android:onClick="agregar"/>
+            android:onClick="agregarAlarma"/>
 
 
     </RelativeLayout>

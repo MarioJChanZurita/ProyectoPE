@@ -19,6 +19,7 @@ public class NotificationHelper extends ContextWrapper {
 
     private NotificationManager mManager;
 
+    //Funcion para compatibilizar las notificaciones con todas las versiones
     public NotificationHelper(Context base) {
         super(base);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
@@ -27,6 +28,7 @@ public class NotificationHelper extends ContextWrapper {
 
     }
 
+    //Funcion para darle sus atributos a la notificacion
     @TargetApi(Build.VERSION_CODES.O)
     private void createNotification() {
         NotificationChannel Notificacion = new NotificationChannel(Notification_ID, Notification_Name, NotificationManager.IMPORTANCE_DEFAULT);
@@ -44,6 +46,7 @@ public class NotificationHelper extends ContextWrapper {
         return mManager;
     }
 
+    //Funcion para crear el diseño de la notificacion
     public NotificationCompat.Builder getNotification(String nombreMedicina, String notas){
         return new NotificationCompat.Builder(getApplicationContext(), Notification_ID)
                 .setContentTitle(nombreMedicina)
