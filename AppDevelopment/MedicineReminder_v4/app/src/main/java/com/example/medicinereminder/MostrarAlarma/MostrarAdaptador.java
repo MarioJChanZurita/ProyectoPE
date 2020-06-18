@@ -28,20 +28,22 @@ public class MostrarAdaptador extends RecyclerView.Adapter<MostrarAdaptador.View
         CardView alarma;
         Context context;
 
+        //Funcion que sirve de modelo para los card view
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             context = itemView.getContext();
 
             nombre = (TextView)itemView.findViewById(R.id.nombreMedicina);
             notas = (TextView)itemView.findViewById(R.id.notasMedicina);
-
             alarma = (CardView) itemView.findViewById(R.id.cardViewAlarma);
         }
 
+        //Funcion para hacer seleccionable el card view
         void setOnClickListeners(){
             alarma.setOnClickListener(this);
         }
 
+        //Funcion para cuando presionas un card view te envia al activity modificar de la alarma seleccionada
         @Override
         public void onClick(View v) {
             switch(v.getId()){

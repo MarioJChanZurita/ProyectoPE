@@ -42,7 +42,7 @@ public class ModificarAlarma extends AppCompatActivity{
     private TextView horaMedicina, periodoMedicina, mostrarFechaFinal;
     private SwitchCompat switchAlarma;
     private int opcion, hora, minutos, periodoHoras, periodoMinutos, ano, mes, dia;
-    private String primeraToma, fechaFinal;
+    private String primeraToma;
 
 
     @Override
@@ -60,15 +60,19 @@ public class ModificarAlarma extends AppCompatActivity{
         mostrarFechaFinal = (EditText) findViewById(R.id.fechaFinalSeleccionada);
         switchAlarma = findViewById(R.id.switchActivarAlarma);
 
+        //Bundle para pasar el nombre de la alarma seleccionada
         Bundle extras = getIntent().getExtras();
         String nombreAlarma = extras.getString("nombre");
         Cursor alarmaBuscada = obtenerAlarma(nombreAlarma);
 
+        //Mostrar los datos de la alarma seleccionada en los campos
         cargarDatos(alarmaBuscada);
+        //Correccion para la fecha del date picker a la fecha actual
         correccionFecha();
 
     }
 
+    //Funcion para obtener la alarma seleccionada en el buscador
     public Cursor obtenerAlarma(String nombre) {
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
         Cursor alarmaBuscada = admin.obtenerAlarmaBuscada(nombre);
@@ -103,26 +107,11 @@ public class ModificarAlarma extends AppCompatActivity{
     //Funcion que modifica mediante una actualizacion en la base de datos los cambios hechos por el usuario
     public void modificar(View view) {
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
-        final SQLiteDatabase baseDatos = admin.getWritableDatabase(); //Abre la base de datos en modo escritura
-
 
         //Obtenemos los valores de los campos correspondientes
         String nombre = nombreMedicina.getText().toString();
         String nota = notasMedicina.getText().toString();
         String fechaFinal = mostrarFechaFinal.getText().toString();
-
-        //Checamos el swith para ver si la alarma esta activada o desactivada y lo actualizamos en la base de datos
-        if (switchAlarma.isChecked()) {
-            int activar = 1;
-            ContentValues modificarActivar = new ContentValues();
-            modificarActivar.put("activar", activar);
-            baseDatos.update("datos", modificarActivar, "posicion=" + opcion, null);
-        } else {
-            int activar = 0;
-            ContentValues modificarActivar = new ContentValues();
-            modificarActivar.put("activar", activar);
-            baseDatos.update("datos", modificarActivar, "posicion=" + opcion, null);
-        }
 
         //verificamos que los campos estan llenos
         if (!nombre.isEmpty()) {
@@ -134,6 +123,16 @@ public class ModificarAlarma extends AppCompatActivity{
             modificar.put("notas", nota);
             modificar.put("hora", primeraToma);
             modificar.put("fechaFinal", fechaFinal);
+
+            //Checamos el swith para ver si la alarma esta activada o desactivada y lo actualizamos en la base de datos
+            if (switchAlarma.isChecked()) {
+                //1 significa alarma activa
+                modificar.put("activar", 1);
+            } else {
+                //0 significa alarma desactivada
+                modificar.put("activar", 0);
+            }
+
             int modificacion = admin.modificarDatos(modificar, opcion);
 
             //Iniciamos el funcionamiento de la alarma
@@ -151,6 +150,36 @@ public class ModificarAlarma extends AppCompatActivity{
         }
     }
 
+    //Funcion que elimina de la base de datos la alarma seleccionada por el usuario
+    public void eliminar(View view) {
+        //Cosas para acceder a la base de datos
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
+        SQLiteDatabase baseDatos = admin.getWritableDatabase(); //Abre la base de datos en modo escritura
+
+        //Se elimina la alarma seleccionada de la base de datos
+        if (baseDatos != null) {
+            int eliminar = baseDatos.delete("datos", "posicion=" + opcion, null);
+            //Se verifica si se elimino la alarma
+            if (eliminar == 1) {
+                Toast.makeText(this, "Medicina eliminada", Toast.LENGTH_SHORT).show();
+                limpiado();
+            } else {
+                Toast.makeText(this, "Ah ocurrido un error", Toast.LENGTH_SHORT).show();
+            }
+        }
+        baseDatos.close();
+    }
+
+    //Funcion de limpiado de todos los campos
+    public void limpiado() {
+        nombreMedicina.setText("");
+        horaMedicina.setText("");
+        periodoMedicina.setText("");
+        notasMedicina.setText("");
+        mostrarFechaFinal.setText("");
+    }
+
+    //Funcion con time picker para obtener la primera toma de la medicina
     public void obtenerPrimeraToma(View view) {
         final TimePickerDialog reloj = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -173,6 +202,7 @@ public class ModificarAlarma extends AppCompatActivity{
         reloj.show();
     }
 
+    //Funcion con time picker para obtener cada cuanto tiempo deberia de activarse la alarma
     public void obtenerIntervalo(View view) {
         final TimePickerDialog reloj = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -193,6 +223,7 @@ public class ModificarAlarma extends AppCompatActivity{
         reloj.show();
     }
 
+    //Funcion con date picker para obtener la fecha en la que se deberá auto desactivar la alarma
     public void obtenerFecha(View view){
         DatePickerDialog calendario = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -206,12 +237,12 @@ public class ModificarAlarma extends AppCompatActivity{
                 mes = month;
                 dia = dayOfMonth;
 
-                fechaFinal = DateFormat.getDateInstance(DateFormat.FULL).format(fecha.getTime());
-                mostrarFechaFinal.setText(fechaFinal);
+                mostrarFechaFinal.setText(DateFormat.getDateInstance(DateFormat.FULL).format(fecha.getTime()));
             }
         }, ano, mes, dia);
         calendario.show();
     }
+    //Funcion que obtiene la fecha actual
     public void correccionFecha(){
         Calendar c = Calendar.getInstance();
         dia = c.get(Calendar.DAY_OF_MONTH);
@@ -219,11 +250,9 @@ public class ModificarAlarma extends AppCompatActivity{
         ano = c.get(Calendar.YEAR);
     }
 
-
     //Funcion para regresar al Main Activity
-    public void regresar(View view) {
-        Intent regresar = new Intent(this, MainActivity.class);
-        startActivity(regresar);
+    public void cerrarActivity(View view) {
+        finish();
     }
 
 }

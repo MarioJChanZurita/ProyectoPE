@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.medicinereminder.DataBase.AdminSQLiteOpenHelper;
+import com.example.medicinereminder.MainActivity;
 import com.example.medicinereminder.MostrarAlarma.MostrarAdaptador;
 import com.example.medicinereminder.MostrarAlarma.MostrarModelo;
 import com.example.medicinereminder.R;
@@ -38,6 +39,7 @@ public class BuscarAlarma extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapter;
     ListView listView;
     EditText barra;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,13 +48,13 @@ public class BuscarAlarma extends AppCompatActivity {
 
         barra = (EditText)findViewById(R.id.barraBusqueda);
         listView = findViewById(R.id.listaAlarmas);
-        listaAlarmas(generarLista());
+        listaAlarmas(generarListaAlarmas());
     }
 
-    public List<String>generarLista(){
+    //Funcion que genera un arreglo dinámico a partir del almacenamiento de la base de datos
+    public List<String>generarListaAlarmas(){
         //Abrimos la base de datos
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
-        SQLiteDatabase baseDatos = admin.getWritableDatabase();
         Cursor lista = admin.obtenerAlarmas();
         List<String> alarmas = new ArrayList<>();
         if(lista.moveToFirst()){
@@ -60,47 +62,47 @@ public class BuscarAlarma extends AppCompatActivity {
                 alarmas.add(lista.getString(2));
             }while(lista.moveToNext());
         }
-        baseDatos.close();
         //Regresamos la lista
         return alarmas;
     }
 
+    //Funcion de list view que muestra las alarmas
     public void listaAlarmas(List<String> listaNombres){
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listaNombres);
         listView.setAdapter(arrayAdapter);
-
         barra.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 (BuscarAlarma.this).arrayAdapter.getFilter().filter(s);
             }
-
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int seleccion, long id) {
                 String nombre = (String) listView.getItemAtPosition(seleccion);
-                iniciarModificar(nombre);
+                iniciarActivityModificar(nombre);
             }
         });
     }
 
-    public void iniciarModificar(String nombre){
+    //Funcion para pasar a la clase modificar junto con el nombre de la alarma seleccionada
+    public void iniciarActivityModificar(String nombre){
         Intent prueba = new Intent(this, ModificarAlarma.class);
         Bundle Parametros = new Bundle();
         Parametros.putString("nombre", nombre);
         prueba.putExtras(Parametros);
         startActivity(prueba);
+    }
+
+    //Funcion para regresar al Main Activity
+    public void cerrarActivity(View view) {
+        finish();
     }
 
 }

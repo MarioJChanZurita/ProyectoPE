@@ -6,15 +6,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Alarma.BuscarAlarma"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="30dp">
 
-    <EditText
+    <ImageView
+        android:id="@+id/back_pressed_login"
+        android:layout_width="40dp"
+        android:layout_height="31dp"
+        android:src="@drawable/icon_back"
+        android:onClick="cerrarActivity"/>
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/barraBusqueda"/>
+        android:layout_height="wrap_content"
+        android:text="@string/buscarAlarma"
+        android:fontFamily="@font/polis_regular"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/search_icon"
+            android:layout_gravity="center_vertical"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/barraBusqueda"
+            android:hint="@string/buscar"/>
+
+    </LinearLayout>
+
 
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listaAlarmas"/>
 

@@ -18,7 +18,7 @@
             android:layout_width="40dp"
             android:layout_height="31dp"
             android:src="@drawable/icon_back"
-            android:onClick="regresar"/>
+            android:onClick="cerrarActivity"/>
 
         <TextView
             android:layout_width="wrap_content"

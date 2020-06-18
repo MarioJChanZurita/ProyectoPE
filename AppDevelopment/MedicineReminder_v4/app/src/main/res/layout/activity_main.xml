@@ -34,36 +34,6 @@
         android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_margin="10dp"
-                android:background="@color/card1"
-                android:elevation="4dp">
-
-                <ImageView
-                    android:id="@+id/btBorrarMedicina"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/basura_icon"
-                    android:onClick="eliminarAlarma"/>
-
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/borrar"
-                android:textAlignment="center" />
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -109,7 +79,7 @@
             android:elevation="4dp">
 
             <ImageView
-                android:id="@+id/btEditarAlarma"
+                android:id="@+id/btBuscarAlarma"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_centerInParent="true"

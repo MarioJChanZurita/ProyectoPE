@@ -20,6 +20,8 @@ import java.util.List;
 
 public class MostrarAlarmas extends AppCompatActivity {
 
+    RecyclerView recyclerViewAlarma;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +29,7 @@ public class MostrarAlarmas extends AppCompatActivity {
         setContentView(R.layout.activity_mostrar_alarmas);
 
         //Recycler View donde se muestran las alarmas
-        RecyclerView recyclerViewAlarma = (RecyclerView)findViewById(R.id.recyclerAlarmas);
+        recyclerViewAlarma = (RecyclerView)findViewById(R.id.recyclerAlarmas);
         recyclerViewAlarma.setLayoutManager(new LinearLayoutManager(this));
 
         MostrarAdaptador mostrarAdaptador = new MostrarAdaptador(mostrarAlarmas());
@@ -35,11 +37,19 @@ public class MostrarAlarmas extends AppCompatActivity {
 
     }
 
+    //Funcion para actualizar los vista de los recycler views
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Recycler View para mostrar la lista de las alarmas activas
+        MostrarAdaptador mostrarAdaptador = new MostrarAdaptador(mostrarAlarmas());
+        recyclerViewAlarma.setAdapter(mostrarAdaptador);
+    }
+
     //Funcion para obtener todas las alarmas que se van a mostrar en el recycler view
     public List<MostrarModelo> mostrarAlarmas(){
         //Abrimos la base de datos
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
-        SQLiteDatabase baseDatos = admin.getWritableDatabase();
         Cursor lista = admin.obtenerAlarmas();
         //Creamos una lista y alamcenamos en ella el nombre y notas de todas las alarmas
         List<MostrarModelo> mostrar = new ArrayList<>();
@@ -48,13 +58,12 @@ public class MostrarAlarmas extends AppCompatActivity {
                 mostrar.add(new MostrarModelo(lista.getString(2), lista.getString(5)));
             }while(lista.moveToNext());
         }
-        baseDatos.close();
         //Regresamos la lista
         return mostrar;
     }
 
     //Funcion para regresar al Main Activity
-    public void regresar(View view) {
+    public void cerrarActivity(View view) {
         finish();
     }
 }

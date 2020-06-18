@@ -51,6 +51,7 @@ public class NuevaAlarma extends AppCompatActivity{
         notasMedicina = (EditText) findViewById(R.id.notasMedicina);
         mostrarFechaFinal = (TextView) findViewById(R.id.fechaFinalSeleccionada);
 
+        //Correccion para la fecha del date picker a la fecha actual
         correccionFecha();
     }
 
@@ -111,12 +112,14 @@ public class NuevaAlarma extends AppCompatActivity{
         notasMedicina.setText("");
         mostrarFechaFinal.setText("");
     }
+    //Funcion que obtiene la fecha actual
     public void correccionFecha(){
         Calendar c = Calendar.getInstance();
         dia = c.get(Calendar.DAY_OF_MONTH);
         mes = c.get(Calendar.MONTH);
         ano = c.get(Calendar.YEAR);
     }
+    //Funcion con date picker para obtener la fecha en la que se deberá auto desactivar la alarma
     public void obtenerFecha(View view){
         DatePickerDialog calendario = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -136,7 +139,7 @@ public class NuevaAlarma extends AppCompatActivity{
         }, ano, mes, dia);
         calendario.show();
     }
-
+    //Funcion con time picker para obtener la primera toma de la medicina
     public void obtenerPrimeraToma(View view) {
         final TimePickerDialog reloj = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -159,7 +162,7 @@ public class NuevaAlarma extends AppCompatActivity{
         }, hora, minutos, false);
         reloj.show();
     }
-
+    //Funcion con time picker para obtener cada cuanto tiempo deberia de activarse la alarma
     public void obtenerIntervalo(View view) {
         final TimePickerDialog reloj = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -182,7 +185,7 @@ public class NuevaAlarma extends AppCompatActivity{
     }
 
     //Funcion para regresar al Main Activity
-    public void regresar(View view) {
+    public void cerrarActivity(View view) {
         finish();
     }
 

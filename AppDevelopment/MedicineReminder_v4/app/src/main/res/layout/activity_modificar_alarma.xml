@@ -13,12 +13,27 @@
         android:orientation="vertical"
         android:padding="30dp">
 
-        <ImageView
-            android:id="@+id/back_pressed_login"
-            android:layout_width="40dp"
-            android:layout_height="31dp"
-            android:src="@drawable/icon_back"
-            android:onClick="regresar"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/back_pressed_login"
+                android:layout_width="40dp"
+                android:layout_height="31dp"
+                android:src="@drawable/icon_back"
+                android:onClick="cerrarActivity"/>
+
+            <ImageView
+                android:id="@+id/borrar_alarma"
+                android:layout_width="40dp"
+                android:layout_height="31dp"
+                android:src="@drawable/basura_icon"
+                android:onClick="eliminar"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
 
         <TextView
             android:layout_width="wrap_content"

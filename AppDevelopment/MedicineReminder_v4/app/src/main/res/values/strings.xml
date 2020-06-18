@@ -2,7 +2,6 @@
     <string name="app_name">Medicine Reminder</string>
 
     <string name="logo_name">Medicine Reminder</string>
-    <string name="search_text">Search...</string>
     <string name="alarms">Alarmas activas</string>
 
     <string name="pistaNombre">Nombre de medicina</string>
@@ -22,6 +21,7 @@
     <string name="mostrarAlarmas">Alarmas</string>
 
     <string name="buscar">Buscar</string>
+    <string name="buscarAlarma">Buscar alarma</string>
 
 
 </resources>
