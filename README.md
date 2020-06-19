@@ -1,11 +1,59 @@
 # ProyectoPE
+**Miembros del equipo:**
+
+- Alexis Ake Vela
+- Diego DeGante
+- Mario Chan Zurita
+- Pedro Cauich Salazar
+
+**Tabla de contenido**
+
+1. **Introducción**
+
+1. **Definición de proyecto**
+
+  - 2.1 Problemática
+  - 2.2 Objetivos
+
+1. **Requerimientos**
+
+  - 3.1 Actores del sistema
+  - 3.2 Requerimientos de sistema
+    - 3.2.1 Funcionales
+    - 3.2.2 No funcionales
+
+1. **Casos de uso**
+
+  - 4.1 Diagrama de casos de uso
+
+1. **Proceso**
+
+  - 5.1 Estándares de codificación
+  - 5.2 Proceso de desarrollo
+
+1. **Trabajo en equipo**
+
+  - 6.1 Roles
+  - 6.2 Esquema de monitoreo
+  - 6.3 Bitácoras
+  - 6.4 Métrica para evaluar avance individual
+  - 6.5 Avance grupal
+
 **Sistema de alarmas relacionadas al recordatorio de recetas de medicamentos.**
 
-**Problemática:**
+**1. Introducción.**
+
+MedicineReminer es una aplicación en la cual puedes guardar y administrar todas tus recetas médicas, permitiéndote llevar el control de tus medicamentos. Todo esto simplemente añadiendo el nombre del medicamento, la hora de la primera toma, los periodos y notas con las especificaciones médicas necesarias.
+
+MedicineReminder llevará el control de los tiempos de ingesta de cada medicamento por ti, al igual que te mostrará todas las especificaciones necesarias al momento de tomar cada medicamento para que nunca olvides ningún detalle.
+
+**2. Definición del proyecto.**
+
+**2.1 Problemática:**
 
 Al crearse el concepto de medicamentos, surge la necesidad de un consumo de estos moderado y periódico. Los medicamentos tienen el objetivo de mantener un estilo de vida a las personas, sin embargo, muchas de estas personas no son aptas para medir sus tiempos y mantener una responsabilidad óptima sobre sí mismas, es por eso que nuestro proyecto presenta una alternativa para cubrir esta necesidad de una manera eficiente.
 
-**Objetivos:**
+**2.2 Objetivos:**
 
 **Objetivo general:**
 
@@ -15,70 +63,171 @@ Presentar a los usuarios una forma fácil y rápida de organizar el uso de medic
 
 Estructurar la información de los medicamentos de una manera eficiente y de fácil entendimiento.
 
-**Actores del sistema:**
+Organizar los medicamentos en cuestión a si se encuentran activos o inactivos.
+
+Indicar las especificaciones de ingesta para cada toma de cada medicamento.
+
+**3. Requerimientos**
+
+**3.1 Actores del sistema:**
 
 **Usuario:** persona que usa el sistema
 
-Puede ingresar una nueva alarma de medicamento a su lista de alarmas a través de la opción de agregar alarma o el asistente inteligente.
+Puede ingresar una nueva alarma de medicamento a su lista de alarmas a través de la opción de agregar alarma.
 
 Puede editar una alarma ya creada previamente.
 
-Puede activar o desactivar alarmas de su lista de alarmas.
+Puede eliminar una alarma de su lista de alarmas.
+
+Puede agregar o eliminar una alarma haciendo uso únicamente del asistente inteligente.
 
 Puede hacer una búsqueda en su lista de medicamentos ingresando el nombre del medicamento.
 
-**Requerimientos de sistema**
+**3.2 Requerimientos de sistema**
 
-**Funcionales**
+**3.2.1 Funcionales**
 
 | RF001 | Página principal |
 | --- | --- |
-| Descripción | Al iniciar la aplicación, el sistema mostrará un listado de todas las alarmas ya creadas por el usuario. El sistema dará la opción de administrar las alarmas. Las opciones que dará el sistema son las siguientes:Una lista de las alarmas ya creadasEditarAgregar  |
+| Descripción | Al iniciar la aplicación, el sistema mostrará un listado únicamente de las alarmas ya creadas por el usuario que se encuentran activas. El sistema dará la opción de administrar las alarmas. Las opciones que dará el sistema son las siguientes:
+- Seleccionar una alarma de la lista
+- Activar asistente inteligente
+- Buscar alarma
+- Agregar alarma
+- Mostrar alarmas
 
-| RF002 | Editar |
+ |
+
+| RF002 | Seleccionar una alarma de la lista |
 | --- | --- |
-| Descripción | El sistema permitirá modificar cualquiera de los datos ya ingresados en alarmas ya previamente creadas por el mismo usuario. Teniendo en cuenta que, al modificarlos, se reiniciará el tiempo de duración que tenía el medicamente o hábito.  |
+| Descripción | El sistema abrirá la alarma, mostrando todos los datos ingresados por el usuario. Dará la opción de editar la alarma o eliminarla.
+ |
 
-| RF003 | Agregar |
+| RF003 | Eliminar alarma |
 | --- | --- |
-| Descripción | El sistema permitirá agregar una alarma. Los datos que se deben de ingresar para agregar una alarma son:Nombre del medicamentoDosisPeriodo de tiempo (cada cuanto tiempo se debe de tomar el medicamento)Duración (durante cuantos días estará activa la alarma)Notas (recordatorios de especificaciones) |
+| Descripción | El sistema permitirá eliminar la alarma completamente. Teniendo en cuenta que, al eliminarla, los datos de la alarma ya no se podrán visualizar ni ser recuperados. |
 
-| RF004 | Buscador de alarma |
+| RF004 | Editar |
 | --- | --- |
-| Descripción | En la página principal del sistema, en la parte superior se encontrará una barra de búsqueda el cual desplegará las opciones alarmas existentes relacionadas con la búsqueda, las opciones serán seleccionables y redirigirán al usuario a editar la alarma |
+| Descripción | El sistema permitirá modificar cualquiera de los datos ya ingresados en alarmas ya previamente creadas por el mismo usuario. Teniendo en cuenta que, al modificarlos, se reiniciará el tiempo de duración que tenía el medicamente o hábito.
+ |
 
-**No funcionales**
-
-| RNF001 | Opciones de alarma |
+| RF005 | Agregar |
 | --- | --- |
-| Descripción | Al comenzar a sonar una alarma, el sistema dará las siguientes opciones:Posponer alarma (Pospone la alarma 5 minutos)Apagar alarma (inicia el siguiente periodo de tiempo durante el tiempo establecido)   |
+| Descripción | El sistema permitirá agregar una alarma. Los datos que se deben de ingresar para agregar una alarma son:
+- Nombre del medicamento
+- Hora de primera toma
+- Periodo de tiempo (cada cuanto tiempo se debe de tomar el medicamento)
+- Fecha en la cual se auto desactivará la alarma
+- Notas (recordatorios de especificaciones)|
 
-| RNF002 | Conteo automático |
+| RF006 | Buscador de alarma |
 | --- | --- |
-| Descripción | El sistema empezará su conteo de duración de acuerdo al tiempo ingresado por el usuario una vez guardado el recordatorio, con los usos que sean posibles durante ese tiempo.  |
+| Descripción | En la parte superior se encontrará una barra de búsqueda el cual desplegará las opciones alarmas existentes relacionadas con la búsqueda, las opciones serán seleccionables y redirigirán al usuario a editar la alarma |
 
-| RNF003 | Suspensión automática |
+| RF007 | Mostrar alarmas |
 | --- | --- |
-| Descripción | El sistema anulará automáticamente los recordatorias una vez que se cumpla la duración del medicamente ingresado por el usuario (días).  |
+| Descripción | El sistema mostrará una lista de todas las alarmas creadas por el usuario, tanto las que se encuentran activadas como las que se encuentran desactivadas. |
 
-| RNF004 | Notificaciones |
+**3.2.2 No funcionales**
+
+| RNF001 | Conteo automático |
 | --- | --- |
-| Descripción | El sistema mandará la notificación de uso del medicamente cada que cumple el periodo de ingresado (hr) con las notas del medicamento ya establecido, sin modificarse en caso de que se posponga la alarma.  |
+| Descripción | El sistema empezará su conteo de duración de acuerdo al tiempo ingresado por el usuario una vez guardado el recordatorio, con los usos que sean posibles durante ese tiempo.
+ |
 
-| RNF005 | Sistemas compatibles |
+| RNF002 | Suspensión automática |
 | --- | --- |
-| Descripción | La aplicacion se desarrollara con android 4.0.3(Ice Cream Sandwich) API 15 para tener una compatibilidad del 100% con cualquier dispositivo.  |
+| Descripción | El sistema desactivará automáticamente los recordatorias una vez que se llegue a la fecha indicada como fecha de auto desactivación.
+ |
 
-| RNF006 | Asistente inteligente de Google |
+| RNF003 | Notificaciones |
 | --- | --- |
-| Descripción | Se podra acceder a la aplicacion mediante el asistenten inteligente de Google, el usuario podra realizar todas sus funciones usando este mismo asistente.  |
+| Descripción | El sistema mandará la notificación de uso del medicamente cada que cumple el periodo de ingresado (hr) con los siguientes datos:
+- Nombre del medicamento
+- Notas agregadas por el usuario
+ |
 
+| RNF004 | Sistemas compatibles |
+| --- | --- |
+| Descripción | La aplicación se desarrollaá con android 4.0.3(Ice Cream Sandwich) API 15 para tener una compatibilidad del 100% con cualquier dispositivo. |
 
-**Diagrama de casos:**
+| RNF005 | Asistente Inteligente de Google |
+| --- | --- |
+| Descripción | Se podra acceder a la aplicacion mediante el asistenten inteligente de Google, el usuario podra realizar todas sus funciones usando este mismo asistente.
+ |
+
+**4. Casos de uso.**
+
+**CU01** : Agregar alarma de medicina.
+**Descripción** : El usuario desea agregar la alarma de una medicina.
+**Secuencia** :
+
+1. El usuario abre la aplicación.
+2. El usuario presiona el botón de añadir alarma.
+3. El usuario coloca todos los datos requeridos.
+4. La alarma comienza a funcionar al momento que el usuario presiona guardar.
+5. El usuario puede agregar otra alarma o regresar a la página principal presionando la flecha para regresar.
+
+**Salidas alternativas:**
+
+Si el usuario ya no desea crear alguna alarma, presiona la flecha para regresar a la página principal.
+
+**CU02** : Editar alarma de medicina.
+**Descripción** : El usuario desea editar la alarma de una medicina.
+**Secuencia** :
+
+1. El usuario abre la aplicación.
+2. El usuario selecciona la opción buscar.
+3. El usuario coloca en la barra de búsqueda el nombre de la alarma que desea editar.
+4. El usuario selecciona el nombre de la alarma.
+5. El usuario modifica el o los datos que desea cambiar.
+6. El usuario presiona el botón de guardar.
+7. El usuario presiona la flecha para regresar a la página principal.
+
+**Salidas alternativas:**
+
+Si el usuario ya no desea editar alguna alarma, presiona la flecha para regresar a la página principal.
+
+**CU03** : Eliminar alarma de medicina.
+**Descripción** : El usuario desea eliminar la alarma de una medicina.
+
+**Secuencia** :
+
+1. El usuario abre la aplicación.
+2. El usuario selecciona la opción buscar.
+3. El usuario coloca en la barra de búsqueda el nombre de la alarma que desea eliminar.
+4. El usuario selecciona el nombre de la alarma.
+5. El usuario presiona el botón de eliminar.
+6. El usuario presiona la flecha para regresar a la página principal.
+
+**Salidas alternativas:**
+
+Si el usuario ya no desea eliminar alguna alarma, presiona la flecha para regresar a la página principal.
+
+**CU04** : Agregar alarma de medicina usando el asistente inteligente.
+**Descripción** : El usuario desea agregar la alarma de una medicina usando únicamente el asistente inteligente.
+**Secuencia** :
+
+1. El usuario abre la aplicación.
+2. El usuario selecciona la opción asistente.
+3. El usuario, como ejemplo, le puede decir al asistente: &quot;Agregar alarma&quot;.
+4. Se hará una serie de preguntas y respuestas entre el usuario y el asistente para adquirir todos los datos necesarios.
+5. Al finalizar, el asistente dirá: &quot;Alarma agregada&quot;, se cerrará automáticamente y la alarma estará activa a partir de ese momento.
+6. El usuario se mantendrá en la página principal durante todo el proceso.
+
+**Salidas alternativas:**
+
+Si el usuario ya no desea agregar alguna alarma, puede decir: &quot;cancelar&quot;, cancelando automáticamente el proceso.
+
+**4.1 Diagrama de casos:**
 
 ![casoUso](https://raw.githubusercontent.com/pajaroloco86/ProyectoPE/master/caso.png)
+![casoUso2](https://raw.githubusercontent.com/pajaroloco86/ProyectoPE/master/caso2.png)
 
-**Estándares de codificación**
+**5. Proceso.**
+
+**5.1 Estándares de codificación**
 
 Se empleará el uso del estándar básico de programación:
 
@@ -96,7 +245,7 @@ Comentarios, para las funciones se emplearán principalmente dos tipos de coment
 
 Como documentación se utilizará JavaDoc proveniente del Java Developer Kit
 
-**Proceso de desarrollo.**
+**5.2 Proceso de desarrollo.**
 
 Se empleará el método scrum, pero enfocándonos en que el sistema sea iterativo-incremental en donde se llevará la necesidad de tener un análisis, un diseño, la codificación y las pruebas (en ese mismo orden), para cada que se le agregue una funcionalidad conforme pase el tiempo para permitir la evolución del producto.
 
@@ -104,58 +253,46 @@ Herramientas:
 
 Como principal entorno de desarrollo se empleará Android Studio, como principal punto de trabajo entre los miembros del equipo se utilizará GitHub, se usará Visual Studio Code como apoyo para la generación de la documentación interna del codigo.
 
-Organización:
+**6. Trabajo en equipo**
+
+**6.1 Roles:**
 
 Alexis Ake: _Scrum team_
 
 Diego de Gante: _Scrum team_
 
-Mario Chan: _Scrum team_ **/ Scrum master**
+Mario Chan: _Scrum team_ _ **/ Scrum master** _
 
 Pedro Cauich: _Scrum team_
 
-Esquemas de monitoreo:
+**6.2 Esquemas de monitoreo:**
 
 El monitoreo del equipo estará contenido en el calendario, donde se irán apuntando los avances logrados cada determinado tiempo y serán comparados con los avances planeados.
 
-Bitácoras:
+**6.3 Bitácoras:**
 
-Conforme avanzamos en el proceso de desarrollo, iremos anotando cada una de los avances y cambios que se vayan haciendo al sistema, para tener un control sobre el proceso. Las bitacoras consistiran con un formato de: dia, requerimiento o requerimientos trabajados, aporte porcentual realizado a los requerimientos, generalizacion del codigo realizado, es decir, que se agrego, modifico o mejoro del codigo
+Conforme avanzamos en el proceso de desarrollo, iremos anotando cada una de los avances y cambios que se vayan haciendo al sistema, para tener un control sobre el proceso.
 
-Métrica para evaluar avance individual:
+[https://1drv.ms/w/s!AnplW1evppzUh2FakbGST47N7krN?e=BUNP7L](https://1drv.ms/w/s!AnplW1evppzUh2FakbGST47N7krN?e=BUNP7L)
+
+**6.4 Métrica para evaluar avance individual:**
 
 Al terminar con cada sprint, en la reunión de revisión, se realizarán pruebas unitarias a cada módulo trabajado, se analizará entonces la eficiencia del código, así como su extensión. También añadiremos la revisión del tiempo dedicado de cada integrante del equipo como un recurso adicional para la medición.
 
-El porcentaje será dado se acuerdo a las pruebas unitarias en el &quot;retrospective sprint&quot;, por lo que cada junta deberán tener un porcentaje de 100% para que al final se saque un promedio entre los 4 sprint para obtener su % de contribución.
+El porcentaje será dado se acuerdo a las pruebas unitarias en el &quot;retrospective sprint&quot;, por lo que cada junta deberán tener un porcentaje de 100% para que al final se saque un promedio entre los 6 sprint para obtener su % de contribución.
 
-Ejemplo:
-
-retrospective sprint\_1:
-
-Alexis Ake: 100%
-
-Diego de Gante: 80%
-
-Mario Chan: 100%
-
-Pedro Cauich: 80%
-
-**.**
-
-**.**
-
-**.**
+_El desglose de la métrica individual esta agregada junto con la bitácora._
 
 retrospective sprint\_ finalpercentage:
 
-Alexis Ake: 97.5%
+Alexis Ake: 100%
 
-Diego de Gante: 99%
+Diego de Gante: 100%
 
 Mario Chan: 100%
 
-Pedro Cauich: 96.5%
+Pedro Cauich: 100%
 
-Avance grupal:
+**6.5 Avance grupal:**
 
 Haremos reuniones donde se analizará el avance del proyecto en relación a lo establecido, para poder dar paso a la siguiente etapa de desarrollo, tomando en cuenta la asistencia y su avance en la construcción del proyecto para saber que cada uno cumpla con su parte establecida.
