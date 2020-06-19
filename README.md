@@ -223,7 +223,6 @@ Si el usuario ya no desea agregar alguna alarma, puede decir: &quot;cancelar&quo
 **4.1 Diagrama de casos:**
 
 ![casoUso](https://raw.githubusercontent.com/pajaroloco86/ProyectoPE/master/caso.png)
-![casoUso2](https://raw.githubusercontent.com/pajaroloco86/ProyectoPE/master/caso2.png)
 
 **5. Proceso.**
 
