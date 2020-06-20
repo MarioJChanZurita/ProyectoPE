@@ -1,4 +1,7 @@
 # ProyectoPE
+**URL de presentación del proyecto**
+
+
 **Miembros del equipo:**
 
 - Alexis Ake Vela
@@ -21,6 +24,7 @@
   - 3.2 Requerimientos de sistema
     - 3.2.1 Funcionales
     - 3.2.2 No funcionales
+    - 3.2.3 Mapeo de requerimientos
 
 1. **Casos de uso**
 
@@ -61,11 +65,13 @@ Presentar a los usuarios una forma fácil y rápida de organizar el uso de medic
 
 **Objetivos específicos:**
 
-Estructurar la información de los medicamentos de una manera eficiente y de fácil entendimiento.
-
-Organizar los medicamentos en cuestión a si se encuentran activos o inactivos.
-
-Indicar las especificaciones de ingesta para cada toma de cada medicamento.
+A) Estructurar la información de los medicamentos de una manera eficiente y de fácil entendimiento. 
+B) Organizar los medicamentos en cuestión a si se encuentran activos o inactivos.
+C) Notificar e indicar las especificaciones de ingesta para cada toma de cada medicamento. 
+D) Administrar las alarmas de acuerdo a las necesidades del usuario.
+E) Automatizar el funcionamiento de las alarmas.
+F) Compatible con más del 80% de dispositivos android.
+G) Permitir al usuario la automatización de los procesos mediante la voz.
 
 **3. Requerimientos**
 
@@ -156,6 +162,24 @@ Puede hacer una búsqueda en su lista de medicamentos ingresando el nombre del m
 | --- | --- |
 | Descripción | Se podra acceder a la aplicacion mediante el asistenten inteligente de Google, el usuario podra realizar todas sus funciones usando este mismo asistente.
  |
+ 
+**3.2.3 Mapeo de requerimientos**
+|Requerimiento | Objetivo  |
+|Funcionales|   |	
+|RF001	| A |
+|RF002	| A |
+|RF003	| C |
+|RF004	| D |
+|RF005	| D |
+|RF006	| A |
+|RF007	| B |
+|No Funcionales |   |	
+|RNF001	| E |
+|RNF002	| E |
+|RNF003	| C |
+|RNF004	| G |
+|RNF005	| F |
+
 
 **4. Casos de uso.**
 
