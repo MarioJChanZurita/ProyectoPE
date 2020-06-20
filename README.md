@@ -1,6 +1,6 @@
-# ProyectoPE
-**URL de presentación del proyecto**
-https://youtu.be/1nG8yeJDFgc
+**URL de presentación de proyecto:**
+
+[https://youtu.be/1nG8yeJDFgc](https://youtu.be/1nG8yeJDFgc)
 
 **Miembros del equipo:**
 
@@ -65,12 +65,18 @@ Presentar a los usuarios una forma fácil y rápida de organizar el uso de medic
 
 **Objetivos específicos:**
 
-A) Estructurar la información de los medicamentos de una manera eficiente y de fácil entendimiento. 
+A) Estructurar la información de los medicamentos de una manera eficiente y de fácil entendimiento.
+
 B) Organizar los medicamentos en cuestión a si se encuentran activos o inactivos.
-C) Notificar e indicar las especificaciones de ingesta para cada toma de cada medicamento. 
+
+C) Notificar e indicar las especificaciones de ingesta para cada toma de cada medicamento.
+
 D) Administrar las alarmas de acuerdo a las necesidades del usuario.
+
 E) Automatizar el funcionamiento de las alarmas.
+
 F) Compatible con más del 80% de dispositivos android.
+
 G) Permitir al usuario la automatización de los procesos mediante la voz.
 
 **3. Requerimientos**
@@ -125,7 +131,8 @@ Puede hacer una búsqueda en su lista de medicamentos ingresando el nombre del m
 - Hora de primera toma
 - Periodo de tiempo (cada cuanto tiempo se debe de tomar el medicamento)
 - Fecha en la cual se auto desactivará la alarma
-- Notas (recordatorios de especificaciones)|
+- Notas (recordatorios de especificaciones)
+ |
 
 | RF006 | Buscador de alarma |
 | --- | --- |
@@ -154,32 +161,34 @@ Puede hacer una búsqueda en su lista de medicamentos ingresando el nombre del m
 - Notas agregadas por el usuario
  |
 
-| RNF004 | Sistemas compatibles |
+| RNF004 | Asistente Inteligente |
+| --- | --- |
+| Descripción | Se podrá acceder a la aplicación mediante el asistente inteligente d Google, el usuario podrá únicamente agregar o eliminar alarmas haciendo uso del asistente |
+
+| RNF005 | Sistemas compatibles |
 | --- | --- |
 | Descripción | La aplicación se desarrollaá con android 4.0.3(Ice Cream Sandwich) API 15 para tener una compatibilidad del 100% con cualquier dispositivo. |
 
-| RNF005 | Asistente Inteligente de Google |
-| --- | --- |
-| Descripción | Se podra acceder a la aplicacion mediante el asistenten inteligente de Google, el usuario podra realizar todas sus funciones usando este mismo asistente.
- |
- 
 **3.2.3 Mapeo de requerimientos**
-|Requerimiento | Objetivo  |
-|Funcionales|   |	
-|RF001	| A |
-|RF002	| A |
-|RF003	| C |
-|RF004	| D |
-|RF005	| D |
-|RF006	| A |
-|RF007	| B |
-|No Funcionales |   |	
-|RNF001	| E |
-|RNF002	| E |
-|RNF003	| C |
-|RNF004	| G |
-|RNF005	| F |
 
+| **Requerimiento** | **Objetivo** |
+| --- | --- |
+| Funcionales |
+ |
+| RF001 | A |
+| RF002 | A |
+| RF003 | C |
+| RF004 | D |
+| RF005 | D |
+| RF006 | A |
+| RF007 | B |
+| No Funcionales |
+ |
+| RNF001 | E |
+| RNF002 | E |
+| RNF003 | C |
+| RNF004 | G |
+| RNF005 | F |
 
 **4. Casos de uso.**
 
@@ -215,7 +224,6 @@ Si el usuario ya no desea editar alguna alarma, presiona la flecha para regresar
 
 **CU03** : Eliminar alarma de medicina.
 **Descripción** : El usuario desea eliminar la alarma de una medicina.
-
 **Secuencia** :
 
 1. El usuario abre la aplicación.
