@@ -13,12 +13,12 @@
 
 1. **Introducción**
 
-1. **Definición de proyecto**
+2. **Definición de proyecto**
 
   - 2.1 Problemática
   - 2.2 Objetivos
 
-1. **Requerimientos**
+3. **Requerimientos**
 
   - 3.1 Actores del sistema
   - 3.2 Requerimientos de sistema
@@ -26,22 +26,35 @@
     - 3.2.2 No funcionales
     - 3.2.3 Mapeo de requerimientos
 
-1. **Casos de uso**
+4. **Asistente Inteligente**
 
-  - 4.1 Diagrama de casos de uso
+  - 4.1 Definición
+  - 4.2 Creación del asistente
+    - 4.2.1 Agente
+    - 4.2.2 Intents
+    - 4.2.3 Acción
+    - 4.2.4 Parámetros
+    - 4.2.5 Entidades
+    - 4.2.6 Respuestas
+    - 4.2.7 Contextos
+    - 4.2.8 Eventos
+  - 4.3 Implementación del asistente
+5. **Casos de uso**
 
-1. **Proceso**
+  - 5.1 Diagrama de casos de uso
 
-  - 5.1 Estándares de codificación
-  - 5.2 Proceso de desarrollo
+6. **Proceso**
 
-1. **Trabajo en equipo**
+  - 6.1 Estándares de codificación
+  - 6.2 Proceso de desarrollo
 
-  - 6.1 Roles
-  - 6.2 Esquema de monitoreo
-  - 6.3 Bitácoras
-  - 6.4 Métrica para evaluar avance individual
-  - 6.5 Avance grupal
+7. **Trabajo en equipo**
+
+  - 7.1 Roles
+  - 7.2 Esquema de monitoreo
+  - 7.3 Bitácoras
+  - 7.4 Métrica para evaluar avance individual
+  - 7.5 Avance grupal
 
 **Sistema de alarmas relacionadas al recordatorio de recetas de medicamentos.**
 
@@ -190,7 +203,63 @@ Puede hacer una búsqueda en su lista de medicamentos ingresando el nombre del m
 | RNF004 | G |
 | RNF005 | F |
 
-**4. Casos de uso.**
+**4. Asistente Inteligente.**
+
+**4.1 Definición** 
+* ¿Qué es dialogflow? 
+
+El asistente de este proyecto se basa en Dialogflow, que es una plataforma con comprensión del lenguaje natural que facilita el diseño de una interfaz de usuario de conversación y su integración a una aplicación para dispositivos móviles, aplicaciones web, dispositivos, bots, sistemas de respuesta de voz interactiva, entre otros. Dialogflow da lugar a nuevas y atractivas formas para que los usuarios interactúen con tu producto. Resumiendo, los pasos que sigue esta herramienta de google, tenemos que primero el usuario ingresa información, se hace una consulta de esta información, se determina el intent y se manda a este, el intent entra en proceso y hace sus acciones y respuestas necesaria, se envían parámetros al proyecto para finalizar con datos que determinan alguna acción y mandarlos como respuesta.
+
+**4.2 Creación del asistente**
+
+**4.2.1 Agente**
+Para empezar, entendamos que todos los procesos y recursos de cualquier proyecto se manejan directamente desde la plataforma de Dialogflow, estos se sincronizan al proyecto en cuestión por medio de una llave que se otorga al iniciar un nuevo agente. Para hacer esto primero se necesita crear un dicho “agente”, que es un agente virtual que maneja las conversaciones con los usuarios finales. Es un módulo de comprensión del lenguaje natural que comprende los matices del lenguaje humano. Un agente de Dialogflow es similar a un agente de un centro de llamadas humano. Debes entrenarlos para que se encarguen de las situaciones de conversación esperadas, y el entrenamiento no tiene que ser demasiado explícito. Manejará todos los procesos: intents, acciones, entidades, parámetros, etcétera. 
+
+El agente de este proyecto “AlArmando” está dedicado a reconocer y extraer horarios y periodos de tiempo relacionados a medicamentos de nuestros usuarios, así como datos adicionales que se le pueden proporcionar.
+
+**4.2.2 Intents**
+Un intent clasifica la intención del usuario final para un turno de conversación. Para cada agente defines muchos intents; tus intents combinados pueden manejar una conversación completa. Cuando un usuario final escribe o dice algo, lo que se denomina expresión de usuario final, Dialogflow hace coincidir la expresión del usuario final con el mejor intent en tu agente. La coincidencia de un intent también se conoce como clasificación de intent. 
+
+Un intent contiene los siguientes elementos básicos: frases de entrenamiento, acción, parámetros, respuestas, contextos y eventos. Tomemos como ejemplo el intent de nuestro agente “establecerAlarmaConFecha”, para crearlo primero le dimos las frases de entrenamiento pensando en lo que el usuario podría decir y buscando no ser repetitivos. Se recomienda dar al menos 10 frases de entrenamiento, por nuestra parte, le aportamos frases como “programa una alarma a las 8:50 p.m hasta el día 20 de agosto del 2020”, “quiero una alarma a las 7 de la mañana con fecha final en el día 15 de octubre”. Como se puede observar, se introdujeron sinónimos de los verbos y conectores para la duración, buscando variar y que el entrenamiento sea más rico.
+
+**4.2.3 Acción**
+El campo de acción es un campo de conveniencia sencillo que ayuda a ejecutar la lógica en el servicio. 
+
+Cuando un intent coincide en el tiempo de ejecución, Dialogflow proporciona el valor de acción a la solicitud de webhook de entregas o la respuesta de interacción de la API. Se puede utilizar para activar lógica específica en tu servicio. En nuestro caso simplemente nos sirvió para identificar de qué intent se trataba al momento de dar el query, simplemente llenamos el campo Acción de este intent con “AlarmaConHorario”. 
+
+**4.2.4 Parámetros**
+Cuando un intent coincide en el entorno de ejecución, Dialogflow proporciona los valores extraídos de la expresión del usuario final como parámetros. Cada parámetro tiene un tipo, llamado tipo de entidad, que dicta cómo se extraen los datos. Nuestro equipo configuró las frases de entrenamiento del intent en cuestión para que solamente sacara 2 parámetros: tiempo y duración. La configuración de las frases para los parámetros es tan fácil como darle una selección a ciertas partes que se repiten y asignarles un tipo de entidad. Estos parámetros tienen demasiada relevancia, pues es con lo que trabajaremos en nuestro programa.
+
+**4.2.5 Entidades**
+Cuando un intent coincide en el entorno de ejecución, Dialogflow proporciona los valores extraídos de la expresión del usuario final como parámetros. Cada parámetro tiene un tipo, llamado tipo de entidad, que dicta cómo se extraen los datos. Nuestro equipo configuró las frases de entrenamiento del intent en cuestión para que solamente sacara 2 parámetros: tiempo y duración. La configuración de las frases para los parámetros es tan fácil como darle una selección a ciertas partes que se repiten y asignarles un tipo de entidad. Estos parámetros tienen demasiada relevancia, pues es con lo que trabajaremos en nuestro programa. 
+
+**4.2.6 Respuestas**
+Los intents tienen un controlador de respuestas integrado que puede mostrar respuestas después de la coincidencia del intent. Esta característica solo admite respuestas estáticas, aunque puedes usar referencias del parámetro en estas respuestas para volverlas dinámicas en algún sentido. Esto es útil para resumir la información proporcionada por el usuario final. Por ejemplo, la respuesta de tu intent podría ser: “De acuerdo, reservé una habitación para ti el $date”. Para asignarlas nos dirigimos a su respectivo apartado y escribimos la resuesta que queremos que dé la inteligencia al usuario cuando reconozca el intent. El nuestro cuenta con dos respuestas predeterminadas: “Alarma establecida a las $time.original con fecha final en el día $date.original” y “Programando alarma a las $time.original con fecha final en el día $date.original”. 
+
+**4.2.7 Contextos**
+Los contextos de Dialogflow son similares al contexto del lenguaje natural. Si una persona te dice “son naranjas”, necesitas contexto para entender a qué se refieren. Del mismo modo, para que Dialogflow maneje una expresión de usuario final como esa, debe proporcionarse un contexto con el fin de que coincida de forma correcta con un intent. Mediante los contextos, puedes controlar el flujo de una conversación. Si quieres configurar contextos para un intent, debes establecer contextos de entrada y salida, que se identifican mediante nombres de strings.  
+
+Nuestra aplicación no necesitó de contextos, no es tan complicada. 
+
+**4.2.8 Eventos**
+En condiciones normales, se detecta una coincidencia con un intent cuando una expresión de usuario final coincide con una frase de entrenamiento del intent. Sin embargo, también puedes activar intents mediante eventos. Los eventos se pueden invocar de muchas maneras. 
+
+Hay dos tipos de eventos: 
+
+* Eventos de plataforma: Estos eventos integrados los proporcionan las integraciones de la plataforma. Se invocan cuando se producen eventos específicos de la plataforma. Por ejemplo, la integración en Facebook invoca el evento FACEBOOK_LOCATION cuando un usuario final acepta o rechaza una solicitud para acceder a su ubicación. 
+
+* Eventos personalizados: Son eventos que tú defines. Puedes invocarlos mediante una entrega o la API. Por ejemplo, puedes establecer una alerta temporizada durante una conversación, lo que invoca un evento en un momento determinado. Este evento podría activar un intent que alerta al usuario final acerca de algo. 
+
+Decidimos  detectar intents con expresiones de usuario solamente, no optamos por eventos.
+
+**4.3 Implementación del asistente**
+Para implementar un asistente se necesita activar la integración que se quiere directamente en la plataforma, existen muchas opciones de las cuales destacan las basadas en texto como son facebook messenger, twitter, slack, hangouts chat, line, entre otros. También existen algunas opciones para telefonía. 
+
+Para implementar nuestro asistente a la app nosotros no necesitamos activar ninguna integration, ya que se trata de una app en Android Studio.  
+
+En la aplicación se hookea los servicios de la plataforma con la variable AIService y con la función AIConfiguration poniendo nuestra clave del agente en esta última, también es necesario darle un idioma y un motor de reconocimiento. A partir de aquí se implementan las clases y se utilizan de la manera que se quiera. En nuestro caso el idioma elegido fue el español y el sistema predeterminado, también, al ser un listener, estuvimos en la necesidad de implementar las clases necesarias para así manejar los parámetros de una manera más eficiente centrándonos en la clase onResult. 
+  
+**5. Casos de uso.**
 
 **CU01** : Agregar alarma de medicina.
 **Descripción** : El usuario desea agregar la alarma de una medicina.
@@ -252,13 +321,13 @@ Si el usuario ya no desea eliminar alguna alarma, presiona la flecha para regres
 
 Si el usuario ya no desea agregar alguna alarma, puede decir: &quot;cancelar&quot;, cancelando automáticamente el proceso.
 
-**4.1 Diagrama de casos:**
+**5.1 Diagrama de casos:**
 
 ![casoUso](https://raw.githubusercontent.com/pajaroloco86/ProyectoPE/master/casos.png)
 
-**5. Proceso.**
+**6. Proceso.**
 
-**5.1 Estándares de codificación**
+**6.1 Estándares de codificación**
 
 Se empleará el uso del estándar básico de programación:
 
@@ -276,7 +345,7 @@ Comentarios, para las funciones se emplearán principalmente dos tipos de coment
 
 Como documentación se utilizará JavaDoc proveniente del Java Developer Kit
 
-**5.2 Proceso de desarrollo.**
+**6.2 Proceso de desarrollo.**
 
 Se empleará el método scrum, pero enfocándonos en que el sistema sea iterativo-incremental en donde se llevará la necesidad de tener un análisis, un diseño, la codificación y las pruebas (en ese mismo orden), para cada que se le agregue una funcionalidad conforme pase el tiempo para permitir la evolución del producto.
 
@@ -284,9 +353,9 @@ Herramientas:
 
 Como principal entorno de desarrollo se empleará Android Studio, como principal punto de trabajo entre los miembros del equipo se utilizará GitHub, se usará Visual Studio Code como apoyo para la generación de la documentación interna del codigo.
 
-**6. Trabajo en equipo**
+**7. Trabajo en equipo**
 
-**6.1 Roles:**
+**7.1 Roles:**
 
 Alexis Ake: _Scrum team_
 
@@ -296,17 +365,17 @@ Mario Chan: _Scrum team_ _ **/ Scrum master** _
 
 Pedro Cauich: _Scrum team_
 
-**6.2 Esquemas de monitoreo:**
+**7.2 Esquemas de monitoreo:**
 
 El monitoreo del equipo estará contenido en el calendario, donde se irán apuntando los avances logrados cada determinado tiempo y serán comparados con los avances planeados.
 
-**6.3 Bitácoras:**
+**7.3 Bitácoras:**
 
 Conforme avanzamos en el proceso de desarrollo, iremos anotando cada una de los avances y cambios que se vayan haciendo al sistema, para tener un control sobre el proceso.
 
 [https://1drv.ms/w/s!AnplW1evppzUh2FakbGST47N7krN?e=BUNP7L](https://1drv.ms/w/s!AnplW1evppzUh2FakbGST47N7krN?e=BUNP7L)
 
-**6.4 Métrica para evaluar avance individual:**
+**7.4 Métrica para evaluar avance individual:**
 
 Al terminar con cada sprint, en la reunión de revisión, se realizarán pruebas unitarias a cada módulo trabajado, se analizará entonces la eficiencia del código, así como su extensión. También añadiremos la revisión del tiempo dedicado de cada integrante del equipo como un recurso adicional para la medición.
 
@@ -324,6 +393,6 @@ Mario Chan: 100%
 
 Pedro Cauich: 100%
 
-**6.5 Avance grupal:**
+**7.5 Avance grupal:**
 
 Haremos reuniones donde se analizará el avance del proyecto en relación a lo establecido, para poder dar paso a la siguiente etapa de desarrollo, tomando en cuenta la asistencia y su avance en la construcción del proyecto para saber que cada uno cumpla con su parte establecida.
