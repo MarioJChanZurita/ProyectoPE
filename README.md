@@ -272,9 +272,21 @@ Para implementar un asistente se necesita activar la integración que se quiere 
 
 Para implementar nuestro asistente a la app nosotros no necesitamos activar ninguna integration, ya que se trata de una app en Android Studio.  
 
-En la aplicación se hookea los servicios de la plataforma con la variable AIService y con la función AIConfiguration poniendo nuestra clave del agente en esta última, también es necesario darle un idioma y un motor de reconocimiento. A partir de aquí se implementan las clases y se utilizan de la manera que se quiera. En nuestro caso el idioma elegido fue el español y el sistema predeterminado, también, al ser un listener, estuvimos en la necesidad de implementar las clases necesarias para así manejar los parámetros de una manera más eficiente centrándonos en la clase onResult. 
+En la aplicación se hookea los servicios de la plataforma con la variable AIService y con la función AIConfiguration poniendo nuestra clave del agente en esta última, también es necesario darle un idioma y un motor de reconocimiento. A partir de aquí se implementan las clases y se utilizan de la manera que se quiera. En nuestro caso el idioma elegido fue el español y el sistema predeterminado, también, al ser un listener, estuvimos en la necesidad de implementar las clases necesarias para así manejar los parámetros de una manera más eficiente centrándonos en la clase onResult. Ejemplo: 
+
+### En primer lugar, lo que necesitamos para implementar el asistente son las librerías, las añadimos al gradle: 
+
+![casoUso](https://raw.githubusercontent.com/pajaroloco86/ProyectoPE/master/Librerias.png)
+
+### En segunda instancia, enganchamos los servicios de la plataforma. Aquí un ejemplo de nuestro proyecto:
+
+![casoUso](https://raw.githubusercontent.com/pajaroloco86/ProyectoPE/master/EjemploServicios.png)
+
+### Como último paso, se obtienen los resultados y se hace uso de los mismos dependiendo del caso. En el siguiente ejemplo se muestra cómo obtenemos un query completo (resultados, acciones y parámetros) de todo nuestro intent:
+
+![casoUso](https://raw.githubusercontent.com/pajaroloco86/ProyectoPE/master/EjemploUso.png)
   
-**5. Casos de uso.**
+**5. Casos de uso.*
 
 **CU01** : Agregar alarma de medicina.
 **Descripción** : El usuario desea agregar la alarma de una medicina.
